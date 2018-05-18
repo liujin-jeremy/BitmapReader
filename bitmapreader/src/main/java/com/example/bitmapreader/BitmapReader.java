@@ -159,18 +159,14 @@ public class BitmapReader {
         //如果图片宽或者高 大于 view的宽高
         if (height > reqHeight || width > reqWidth) {
 
-            //计算图片的宽高的一半
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
             //分别计算宽高采样率,使用其中最大的值
-            while ((halfHeight / inSampleSize) >= reqHeight) {
+            while ((height / inSampleSize) >= reqHeight) {
                 inSampleSize *= 2;
             }
 
             int heightSampleSize = inSampleSize;
 
-            while ((halfWidth / inSampleSize) >= reqWidth) {
+            while ((width / inSampleSize) >= reqWidth) {
                 inSampleSize *= 2;
             }
 
