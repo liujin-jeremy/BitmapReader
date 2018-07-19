@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+      <group android:checkableBehavior="single">
 
-        <item
+            <item
                 android:id="@+id/menu00"
                 android:title="原始图片"/>
 
-        <item
+            <item
                 android:id="@+id/menu01"
                 android:title="宽度500,高度500"/>
 
-        <item
+            <item
                 android:id="@+id/menu02"
                 android:title="宽度500,高度500; 极限"/>
-    </group>
+
+            <item
+                android:id="@+id/menu03"
+                android:title="matchSize 500 500:"/>
+
+            <item
+                android:id="@+id/menu04"
+                android:title="match width: 500"/>
+
+            <item
+                android:id="@+id/menu05"
+                android:title="match height: 500"/>
+      </group>
 
 </menu>
