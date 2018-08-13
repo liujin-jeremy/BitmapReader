@@ -13,29 +13,29 @@ import android.widget.ImageView;
  */
 public class ImageResSetHelper {
 
-    /**
-     * @param view  imageView
-     * @param resID 资源id
-     */
-    public static void setBitmap(final ImageView view, final int resID) {
+      /**
+       * @param view imageView
+       * @param resID 资源id
+       */
+      public static void setBitmap ( final ImageView view, final int resID ) {
 
-        Runnable runnable = new Runnable() {
-            public Bitmap mBitmap;
+            Runnable runnable = new Runnable() {
 
+                  public Bitmap mBitmap;
 
-            @Override
-            public void run() {
+                  @Override
+                  public void run ( ) {
 
-                mBitmap = BitmapReader.decodeMaxSampledBitmap(
-                        view.getContext().getResources(),
-                        resID,
-                        view.getWidth(),
-                        view.getHeight()
-                );
+                        mBitmap = BitmapReader.decodeMaxSampledBitmap(
+                            view.getContext(),
+                            resID,
+                            view.getWidth(),
+                            view.getHeight()
+                        );
 
-                view.setImageBitmap(mBitmap);
-            }
-        };
-        view.post(runnable);
-    }
+                        view.setImageBitmap( mBitmap );
+                  }
+            };
+            view.post( runnable );
+      }
 }
