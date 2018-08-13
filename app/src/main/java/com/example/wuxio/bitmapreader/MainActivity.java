@@ -12,9 +12,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.bitmapreader.BitmapReader;
-
 import java.util.Locale;
 
 /**
@@ -30,27 +28,35 @@ public class MainActivity extends AppCompatActivity {
       protected DrawerLayout   mDrawerLayout;
 
       @Override
-      protected void onCreate (Bundle savedInstanceState) {
+      protected void onCreate ( Bundle savedInstanceState ) {
 
-            super.onCreate(savedInstanceState);
-            super.setContentView(R.layout.activity_main);
+            super.onCreate( savedInstanceState );
+            super.setContentView( R.layout.activity_main );
             initView();
       }
 
-      private void initView () {
+      private void initView ( ) {
 
-            mTextView = findViewById(R.id.textView);
-            mImageView = findViewById(R.id.ImageView);
-            mNavigationView = findViewById(R.id.navigationView);
-            mDrawerLayout = findViewById(R.id.drawerLayout);
+            mTextView = findViewById( R.id.textView );
+            mImageView = findViewById( R.id.ImageView );
+            mNavigationView = findViewById( R.id.navigationView );
+            mDrawerLayout = findViewById( R.id.drawerLayout );
 
-            mNavigationView.setCheckedItem(R.id.menu00);
-            mNavigationView.setNavigationItemSelectedListener(new MainMenuItemClick());
+            mNavigationView.setCheckedItem( R.id.menu00 );
+            mNavigationView.setNavigationItemSelectedListener( new MainMenuItemClick() );
             setSrc();
       }
 
+      private void setSrc ( ) {
+
+            mImageView.setImageResource( R.drawable.src );
+            Bitmap bitmap = ( (BitmapDrawable) mImageView.getDrawable() ).getBitmap();
+            int count = bitmap.getAllocationByteCount();
+            setTextView( mTextView, count, bitmap.getWidth(), bitmap.getHeight() );
+      }
+
       private void setTextView (
-          TextView textView, int byteCount, int bitmapWidth, int bitmapHeight) {
+          TextView textView, int byteCount, int bitmapWidth, int bitmapHeight ) {
 
             String format = String.format(
                 Locale.CHINA,
@@ -59,45 +65,125 @@ public class MainActivity extends AppCompatActivity {
                 bitmapWidth,
                 bitmapHeight
             );
-            textView.setText(format);
-      }
-
-      private void closeDrawer () {
-
-            mDrawerLayout.closeDrawer(Gravity.START);
+            textView.setText( format );
       }
 
       //============================ item click ============================
 
+      private void closeDrawer ( ) {
+
+            mDrawerLayout.closeDrawer( Gravity.START );
+      }
+
+      //============================ event ============================
+
+      private void scaleSrc ( int width, int height ) {
+
+            Bitmap bitmap = BitmapReader
+                .decodeSampledBitmap( this, R.drawable.src, width, height );
+            mImageView.setImageBitmap( bitmap );
+            setTextView(
+                mTextView, bitmap.getAllocationByteCount(), bitmap.getWidth(), bitmap.getHeight() );
+      }
+
+      private void maxScaleSrc ( int width, int height ) {
+
+            Bitmap bitmap = BitmapReader
+                .decodeMaxSampledBitmap( this, R.drawable.src, width, height );
+            mImageView.setImageBitmap( bitmap );
+            setTextView(
+                mTextView, bitmap.getAllocationByteCount(), bitmap.getWidth(), bitmap.getHeight() );
+      }
+
+      private void matchSize ( int width, int height ) {
+
+            Bitmap bitmap = BitmapReader.decodeBitmapToMatchSize( this, R.drawable.src, 500, 500 );
+
+            mImageView.setImageBitmap( bitmap );
+
+            Log.e( TAG, "matchSize : size:"
+                + bitmap.getAllocationByteCount()
+                + " width: " + bitmap.getWidth() + " "
+                + bitmap.getHeight()
+            );
+
+            setTextView(
+                mTextView,
+                bitmap.getAllocationByteCount(),
+                bitmap.getWidth(),
+                bitmap.getHeight()
+            );
+      }
+
+      private void matchWidth ( int width ) {
+
+            Bitmap bitmap = BitmapReader.decodeBitmapToMatchWidth( this, R.drawable.src, width );
+
+            mImageView.setImageBitmap( bitmap );
+
+            Log.e( TAG, "matchWidth : byteCount:"
+                + bitmap.getAllocationByteCount()
+                + " width: " + bitmap.getWidth() + " "
+                + bitmap.getHeight()
+            );
+
+            setTextView(
+                mTextView,
+                bitmap.getAllocationByteCount(),
+                bitmap.getWidth(),
+                bitmap.getHeight()
+            );
+      }
+
+      private void matchHeight ( int height ) {
+
+            Bitmap bitmap = BitmapReader.decodeBitmapToMatchHeight( this, R.drawable.src, height );
+
+            mImageView.setImageBitmap( bitmap );
+
+            Log.e( TAG, "matchWidth : byteCount:"
+                + bitmap.getAllocationByteCount()
+                + " width: " + bitmap.getWidth() + " "
+                + bitmap.getHeight()
+            );
+
+            setTextView(
+                mTextView,
+                bitmap.getAllocationByteCount(),
+                bitmap.getWidth(),
+                bitmap.getHeight()
+            );
+      }
+
       private class MainMenuItemClick implements NavigationView.OnNavigationItemSelectedListener {
 
             @Override
-            public boolean onNavigationItemSelected (@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected ( @NonNull MenuItem item ) {
 
-                  switch(item.getItemId()) {
+                  switch( item.getItemId() ) {
 
                         case R.id.menu00:
                               setSrc();
                               break;
 
                         case R.id.menu01:
-                              scaleSrc(500, 500);
+                              scaleSrc( 500, 500 );
                               break;
 
                         case R.id.menu02:
-                              maxScaleSrc(500, 500);
+                              maxScaleSrc( 500, 500 );
                               break;
 
                         case R.id.menu03:
-                              matchSize(500, 500);
+                              matchSize( 500, 500 );
                               break;
 
                         case R.id.menu04:
-                              matchWidth(500);
+                              matchWidth( 500 );
                               break;
 
                         case R.id.menu05:
-                              matchHeight(500);
+                              matchHeight( 500 );
                               break;
                         default:
                               break;
@@ -106,93 +192,5 @@ public class MainActivity extends AppCompatActivity {
                   closeDrawer();
                   return true;
             }
-      }
-
-      //============================ event ============================
-
-      private void setSrc () {
-
-            mImageView.setImageResource(R.drawable.src);
-            Bitmap bitmap = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
-            int count = bitmap.getAllocationByteCount();
-            setTextView(mTextView, count, bitmap.getWidth(), bitmap.getHeight());
-      }
-
-      private void scaleSrc (int width, int height) {
-
-            Bitmap bitmap = BitmapReader
-                .decodeSampledBitmap(getResources(), R.drawable.src, width, height);
-            mImageView.setImageBitmap(bitmap);
-            setTextView(
-                mTextView, bitmap.getAllocationByteCount(), bitmap.getWidth(), bitmap.getHeight());
-      }
-
-      private void maxScaleSrc (int width, int height) {
-
-            Bitmap bitmap = BitmapReader
-                .decodeMaxSampledBitmap(getResources(), R.drawable.src, width, height);
-            mImageView.setImageBitmap(bitmap);
-            setTextView(
-                mTextView, bitmap.getAllocationByteCount(), bitmap.getWidth(), bitmap.getHeight());
-      }
-
-      private void matchSize (int width, int height) {
-
-            Bitmap bitmap = BitmapReader.decodeBitmapToMatchSize(this, R.drawable.src, 500, 500);
-
-            mImageView.setImageBitmap(bitmap);
-
-            Log.e(TAG, "matchSize : size:"
-                + bitmap.getAllocationByteCount()
-                + " width: " + bitmap.getWidth() + " "
-                + bitmap.getHeight()
-            );
-
-            setTextView(
-                mTextView,
-                bitmap.getAllocationByteCount(),
-                bitmap.getWidth(),
-                bitmap.getHeight()
-            );
-      }
-
-      private void matchWidth (int width) {
-
-            Bitmap bitmap = BitmapReader.decodeBitmapToMatchWidth(this, R.drawable.src, width);
-
-            mImageView.setImageBitmap(bitmap);
-
-            Log.e(TAG, "matchWidth : byteCount:"
-                + bitmap.getAllocationByteCount()
-                + " width: " + bitmap.getWidth() + " "
-                + bitmap.getHeight()
-            );
-
-            setTextView(
-                mTextView,
-                bitmap.getAllocationByteCount(),
-                bitmap.getWidth(),
-                bitmap.getHeight()
-            );
-      }
-
-      private void matchHeight (int height) {
-
-            Bitmap bitmap = BitmapReader.decodeBitmapToMatchHeight(this, R.drawable.src, height);
-
-            mImageView.setImageBitmap(bitmap);
-
-            Log.e(TAG, "matchWidth : byteCount:"
-                + bitmap.getAllocationByteCount()
-                + " width: " + bitmap.getWidth() + " "
-                + bitmap.getHeight()
-            );
-
-            setTextView(
-                mTextView,
-                bitmap.getAllocationByteCount(),
-                bitmap.getWidth(),
-                bitmap.getHeight()
-            );
       }
 }
