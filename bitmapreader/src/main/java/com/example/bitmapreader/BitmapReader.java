@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.support.annotation.DrawableRes;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -127,7 +128,8 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap decodeSampledBitmap ( InputStream input, int reqWidth, int reqHeight ) {
+      public static Bitmap decodeSampledBitmap ( InputStream input, int reqWidth, int reqHeight )
+          throws IOException {
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -137,6 +139,7 @@ public class BitmapReader {
             options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
+            input.reset();
             return BitmapFactory.decodeStream( input, null, options );
       }
 
@@ -150,7 +153,7 @@ public class BitmapReader {
        * @return 压缩后图片
        */
       public static Bitmap decodeMaxSampledBitmap (
-          InputStream input, int reqWidth, int reqHeight ) {
+          InputStream input, int reqWidth, int reqHeight ) throws IOException {
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -160,6 +163,9 @@ public class BitmapReader {
             options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
+
+            input.reset();
+
             return BitmapFactory.decodeStream( input, null, options );
       }
 
@@ -255,7 +261,7 @@ public class BitmapReader {
       public static Bitmap decodeBitmapToMatchSize (
           InputStream inputStream,
           int widthSize,
-          int heightSize ) {
+          int heightSize ) throws IOException {
 
             BitmapFactory.Options options = new Options();
             options.inJustDecodeBounds = true;
@@ -279,6 +285,8 @@ public class BitmapReader {
 
             options.inScaled = true;
             options.inJustDecodeBounds = false;
+
+            inputStream.reset();
 
             return BitmapFactory.decodeStream( inputStream, null, options );
       }
@@ -343,7 +351,7 @@ public class BitmapReader {
        */
       public static Bitmap decodeBitmapToMatchWidth (
           InputStream inputStream,
-          int widthSize ) {
+          int widthSize ) throws IOException {
 
             BitmapFactory.Options options = new Options();
             options.inJustDecodeBounds = true;
@@ -354,6 +362,8 @@ public class BitmapReader {
 
             options.inScaled = true;
             options.inJustDecodeBounds = false;
+
+            inputStream.reset();
 
             return BitmapFactory.decodeStream( inputStream, null, options );
       }
@@ -418,7 +428,7 @@ public class BitmapReader {
        */
       public static Bitmap decodeBitmapToMatchHeight (
           InputStream inputStream,
-          int heightSize ) {
+          int heightSize ) throws IOException {
 
             BitmapFactory.Options options = new Options();
             options.inJustDecodeBounds = true;
@@ -429,6 +439,8 @@ public class BitmapReader {
 
             options.inScaled = true;
             options.inJustDecodeBounds = false;
+
+            inputStream.reset();
 
             return BitmapFactory.decodeStream( inputStream, null, options );
       }
