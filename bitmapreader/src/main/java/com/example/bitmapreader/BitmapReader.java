@@ -6,8 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.support.annotation.DrawableRes;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author wuxio
@@ -120,58 +118,6 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度 use {@link #decodeSampledBitmap(File, int, int)}
-       *
-       * @param input 流
-       * @param reqWidth 期望宽度
-       * @param reqHeight 期望高度
-       *
-       * @return 压缩后图片
-       */
-      @Deprecated
-      public static Bitmap decodeSampledBitmap ( InputStream input, int reqWidth, int reqHeight )
-          throws IOException {
-
-            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream( input, null, options );
-            // 调用下面定义的方法计算inSampleSize值
-            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
-            // 使用获取到的inSampleSize值再次解析图片
-            options.inJustDecodeBounds = false;
-            input.reset();
-            return BitmapFactory.decodeStream( input, null, options );
-      }
-
-      /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度 use {@link #decodeMaxSampledBitmap(File, int, int)}
-       *
-       * @param input 流
-       * @param reqWidth 期望宽度
-       * @param reqHeight 期望高度
-       *
-       * @return 压缩后图片
-       */
-      @Deprecated
-      public static Bitmap decodeMaxSampledBitmap (
-          InputStream input, int reqWidth, int reqHeight ) throws IOException {
-
-            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream( input, null, options );
-            // 调用下面定义的方法计算inSampleSize值
-            options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
-            // 使用获取到的inSampleSize值再次解析图片
-            options.inJustDecodeBounds = false;
-
-            input.reset();
-
-            return BitmapFactory.decodeStream( input, null, options );
-      }
-
-      /**
        * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
        *
        * @param context 提供resource
@@ -253,48 +199,6 @@ public class BitmapReader {
       }
 
       /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求 use {@link #decodeBitmapToMatchSize(File, int, int)}
-       *
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       *
-       * @return bitmap
-       */
-      @Deprecated
-      public static Bitmap decodeBitmapToMatchSize (
-          InputStream inputStream,
-          int widthSize,
-          int heightSize ) throws IOException {
-
-            BitmapFactory.Options options = new Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream( inputStream, null, options );
-
-            int outWidth = options.outWidth;
-            int outHeight = options.outHeight;
-
-            float fateWidth = outWidth * 1f / widthSize;
-            float fateHeight = outHeight * 1f / heightSize;
-
-            if( fateHeight > fateWidth ) {
-
-                  options.inDensity = outHeight;
-                  options.inTargetDensity = heightSize;
-            } else {
-
-                  options.inDensity = outWidth;
-                  options.inTargetDensity = widthSize;
-            }
-
-            options.inScaled = true;
-            options.inJustDecodeBounds = false;
-
-            inputStream.reset();
-
-            return BitmapFactory.decodeStream( inputStream, null, options );
-      }
-
-      /**
        * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
        *
        * @param context 提供resource
@@ -343,33 +247,6 @@ public class BitmapReader {
             options.inJustDecodeBounds = false;
 
             return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求,use {@link #decodeBitmapToMatchWidth(File, int)}
-       *
-       * @param widthSize 要求的宽度
-       *
-       * @return bitmap
-       */
-      @Deprecated
-      public static Bitmap decodeBitmapToMatchWidth (
-          InputStream inputStream,
-          int widthSize ) throws IOException {
-
-            BitmapFactory.Options options = new Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream( inputStream, null, options );
-
-            options.inDensity = options.outWidth;
-            options.inTargetDensity = widthSize;
-
-            options.inScaled = true;
-            options.inJustDecodeBounds = false;
-
-            inputStream.reset();
-
-            return BitmapFactory.decodeStream( inputStream, null, options );
       }
 
       /**
@@ -421,33 +298,6 @@ public class BitmapReader {
             options.inJustDecodeBounds = false;
 
             return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即满足高度要求,use {@link #decodeBitmapToMatchHeight(File, int)}
-       *
-       * @param heightSize 要求的高度
-       *
-       * @return bitmap
-       */
-      @Deprecated
-      public static Bitmap decodeBitmapToMatchHeight (
-          InputStream inputStream,
-          int heightSize ) throws IOException {
-
-            BitmapFactory.Options options = new Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream( inputStream, null, options );
-
-            options.inDensity = options.outHeight;
-            options.inTargetDensity = heightSize;
-
-            options.inScaled = true;
-            options.inJustDecodeBounds = false;
-
-            inputStream.reset();
-
-            return BitmapFactory.decodeStream( inputStream, null, options );
       }
 
       /**
