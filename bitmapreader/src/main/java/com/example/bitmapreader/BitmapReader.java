@@ -120,7 +120,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度 use {@link #decodeSampledBitmap(File, int, int)}
        *
        * @param input 流
        * @param reqWidth 期望宽度
@@ -128,6 +128,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
+      @Deprecated
       public static Bitmap decodeSampledBitmap ( InputStream input, int reqWidth, int reqHeight )
           throws IOException {
 
@@ -144,7 +145,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度 use {@link #decodeMaxSampledBitmap(File, int, int)}
        *
        * @param input 流
        * @param reqWidth 期望宽度
@@ -152,6 +153,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
+      @Deprecated
       public static Bitmap decodeMaxSampledBitmap (
           InputStream input, int reqWidth, int reqHeight ) throws IOException {
 
@@ -251,13 +253,14 @@ public class BitmapReader {
       }
 
       /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求 use {@link #decodeBitmapToMatchSize(File, int, int)}
        *
        * @param widthSize 要求的宽度
        * @param heightSize 要求的高度
        *
        * @return bitmap
        */
+      @Deprecated
       public static Bitmap decodeBitmapToMatchSize (
           InputStream inputStream,
           int widthSize,
@@ -343,12 +346,13 @@ public class BitmapReader {
       }
 
       /**
-       * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
+       * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求,use {@link #decodeBitmapToMatchWidth(File, int)}
        *
        * @param widthSize 要求的宽度
        *
        * @return bitmap
        */
+      @Deprecated
       public static Bitmap decodeBitmapToMatchWidth (
           InputStream inputStream,
           int widthSize ) throws IOException {
@@ -420,12 +424,13 @@ public class BitmapReader {
       }
 
       /**
-       * 解析一个图片资源到匹配设定的尺寸,即满足高度要求
+       * 解析一个图片资源到匹配设定的尺寸,即满足高度要求,use {@link #decodeBitmapToMatchHeight(File, int)}
        *
        * @param heightSize 要求的高度
        *
        * @return bitmap
        */
+      @Deprecated
       public static Bitmap decodeBitmapToMatchHeight (
           InputStream inputStream,
           int heightSize ) throws IOException {
