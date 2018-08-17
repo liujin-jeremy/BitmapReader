@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
       private void scaleSrc ( int width, int height ) {
 
             Bitmap bitmap = BitmapReader
-                .decodeSampledBitmap( this, R.drawable.src, width, height );
+                .sampledBitmap( this, R.drawable.src, width, height );
             mImageView.setImageBitmap( bitmap );
             setTextView(
                 mTextView, bitmap.getAllocationByteCount(), bitmap.getWidth(), bitmap.getHeight() );
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
       private void maxScaleSrc ( int width, int height ) {
 
             Bitmap bitmap = BitmapReader
-                .decodeMaxSampledBitmap( this, R.drawable.src, width, height );
+                .maxSampledBitmap( this, R.drawable.src, width, height );
             mImageView.setImageBitmap( bitmap );
             setTextView(
                 mTextView, bitmap.getAllocationByteCount(), bitmap.getWidth(), bitmap.getHeight() );
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void matchSize ( int width, int height ) {
 
-            Bitmap bitmap = BitmapReader.decodeBitmapToMatchSize( this, R.drawable.src, 500, 500 );
+            Bitmap bitmap = BitmapReader.matchSize( this, R.drawable.src, 500, 500 );
 
             mImageView.setImageBitmap( bitmap );
 
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void matchWidth ( int width ) {
 
-            Bitmap bitmap = BitmapReader.decodeBitmapToMatchWidth( this, R.drawable.src, width );
+            Bitmap bitmap = BitmapReader.matchWidth( this, R.drawable.src, width );
 
             mImageView.setImageBitmap( bitmap );
 
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void matchHeight ( int height ) {
 
-            Bitmap bitmap = BitmapReader.decodeBitmapToMatchHeight( this, R.drawable.src, height );
+            Bitmap bitmap = BitmapReader.matchHeight( this, R.drawable.src, height );
 
             mImageView.setImageBitmap( bitmap );
 

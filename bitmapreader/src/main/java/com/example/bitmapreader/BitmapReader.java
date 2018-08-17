@@ -2,6 +2,7 @@ package com.example.bitmapreader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.support.annotation.DrawableRes;
@@ -23,7 +24,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap decodeSampledBitmap (
+      public static Bitmap sampledBitmap (
           Context context,
           @DrawableRes int resId,
           int reqWidth,
@@ -36,6 +37,66 @@ public class BitmapReader {
 
             // 调用下面定义的方法计算inSampleSize值
             options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
+            // 使用获取到的inSampleSize值再次解析图片
+            options.inJustDecodeBounds = false;
+
+            return BitmapFactory.decodeResource( context.getResources(), resId, options );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       *
+       * @param context context
+       * @param resId 资源id
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap sampledBitmapRgb (
+          Context context,
+          @DrawableRes int resId,
+          int reqWidth,
+          int reqHeight ) {
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource( context.getResources(), resId, options );
+
+            // 调用下面定义的方法计算inSampleSize值
+            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
+            // 使用获取到的inSampleSize值再次解析图片
+            options.inJustDecodeBounds = false;
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
+
+            return BitmapFactory.decodeResource( context.getResources(), resId, options );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       *
+       * @param context context
+       * @param resId 资源id
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap maxSampledBitmap (
+          Context context,
+          @DrawableRes int resId,
+          int reqWidth,
+          int reqHeight ) {
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource( context.getResources(), resId, options );
+
+            // 调用下面定义的方法计算inSampleSize值
+            options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
 
@@ -52,7 +113,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap decodeMaxSampledBitmap (
+      public static Bitmap maxSampledBitmapRgb (
           Context context,
           @DrawableRes int resId,
           int reqWidth,
@@ -67,6 +128,8 @@ public class BitmapReader {
             options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
 
             return BitmapFactory.decodeResource( context.getResources(), resId, options );
       }
@@ -80,7 +143,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap decodeSampledBitmap ( File file, int reqWidth, int reqHeight ) {
+      public static Bitmap sampledBitmap ( File file, int reqWidth, int reqHeight ) {
 
             String path = file.getPath();
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
@@ -95,6 +158,34 @@ public class BitmapReader {
       }
 
       /**
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       *
+       * @param file 本地文件
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap sampledBitmapRgb ( File file, int reqWidth, int reqHeight ) {
+
+            String path = file.getPath();
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile( path );
+            // 调用下面定义的方法计算inSampleSize值
+            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
+
+            // 使用获取到的inSampleSize值再次解析图片
+            options.inJustDecodeBounds = false;
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
+
+            return BitmapFactory.decodeFile( path );
+      }
+
+      /**
        * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
        *
        * @param file 本地文件
@@ -103,7 +194,33 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap decodeMaxSampledBitmap ( File file, int reqWidth, int reqHeight ) {
+      public static Bitmap maxSampledBitmap ( File file, int reqWidth, int reqHeight ) {
+
+            String path = file.getPath();
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile( path );
+            // 调用下面定义的方法计算inSampleSize值
+            options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
+
+            // 使用获取到的inSampleSize值再次解析图片
+            options.inJustDecodeBounds = false;
+
+            return BitmapFactory.decodeFile( path );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       *
+       * @param file 本地文件
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap maxSampledBitmapRgb ( File file, int reqWidth, int reqHeight ) {
 
             String path = file.getPath();
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
@@ -112,8 +229,12 @@ public class BitmapReader {
             BitmapFactory.decodeFile( path );
             // 调用下面定义的方法计算inSampleSize值
             options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
+
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
+
             return BitmapFactory.decodeFile( path );
       }
 
@@ -127,7 +248,55 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap decodeBitmapToMatchSize (
+      public static Bitmap matchSize (
+          Context context,
+          @DrawableRes int id,
+          int widthSize,
+          int heightSize ) {
+
+            /* 只读取尺寸 */
+
+            BitmapFactory.Options options = new Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource( context.getResources(), id, options );
+
+            int outWidth = options.outWidth;
+            int outHeight = options.outHeight;
+
+            float fateWidth = outWidth * 1f / widthSize;
+            float fateHeight = outHeight * 1f / heightSize;
+
+            /* 根据比率选择缩放边 */
+
+            if( fateHeight > fateWidth ) {
+
+                  options.inDensity = outHeight;
+                  options.inTargetDensity = heightSize;
+            } else {
+
+                  options.inDensity = outWidth;
+                  options.inTargetDensity = widthSize;
+            }
+
+            /* 完成解析 */
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+
+            return BitmapFactory.decodeResource( context.getResources(), id, options );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       *
+       * @param context 提供resource
+       * @param id 资源id
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeRgb (
           Context context,
           @DrawableRes int id,
           int widthSize,
@@ -156,6 +325,9 @@ public class BitmapReader {
             options.inScaled = true;
             options.inJustDecodeBounds = false;
 
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
+
             return BitmapFactory.decodeResource( context.getResources(), id, options );
       }
 
@@ -167,7 +339,7 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap decodeBitmapToMatchSize (
+      public static Bitmap matchSize (
           File file,
           int widthSize,
           int heightSize ) {
@@ -199,6 +371,48 @@ public class BitmapReader {
       }
 
       /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       *
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeRgb (
+          File file,
+          int widthSize,
+          int heightSize ) {
+
+            BitmapFactory.Options options = new Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+
+            int outWidth = options.outWidth;
+            int outHeight = options.outHeight;
+
+            float fateWidth = outWidth * 1f / widthSize;
+            float fateHeight = outHeight * 1f / heightSize;
+
+            if( fateHeight > fateWidth ) {
+
+                  options.inDensity = outHeight;
+                  options.inTargetDensity = heightSize;
+            } else {
+
+                  options.inDensity = outWidth;
+                  options.inTargetDensity = widthSize;
+            }
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
+
+            return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+      }
+
+      /**
        * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
        *
        * @param context 提供resource
@@ -207,7 +421,7 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap decodeBitmapToMatchWidth (
+      public static Bitmap matchWidth (
           Context context,
           @DrawableRes int id,
           int widthSize ) {
@@ -228,11 +442,41 @@ public class BitmapReader {
       /**
        * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
        *
+       * @param context 提供resource
+       * @param id 资源id
        * @param widthSize 要求的宽度
        *
        * @return bitmap
        */
-      public static Bitmap decodeBitmapToMatchWidth (
+      public static Bitmap matchWidthRgb (
+          Context context,
+          @DrawableRes int id,
+          int widthSize ) {
+
+            BitmapFactory.Options options = new Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource( context.getResources(), id, options );
+
+            options.inDensity = options.outWidth;
+            options.inTargetDensity = widthSize;
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
+
+            return BitmapFactory.decodeResource( context.getResources(), id, options );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
+       *
+       * @param widthSize 要求的宽度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchWidth (
           File file,
           int widthSize ) {
 
@@ -245,6 +489,33 @@ public class BitmapReader {
 
             options.inScaled = true;
             options.inJustDecodeBounds = false;
+
+            return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
+       *
+       * @param widthSize 要求的宽度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchWidthRgb (
+          File file,
+          int widthSize ) {
+
+            BitmapFactory.Options options = new Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+
+            options.inDensity = options.outWidth;
+            options.inTargetDensity = widthSize;
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
 
             return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
       }
@@ -258,7 +529,7 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap decodeBitmapToMatchHeight (
+      public static Bitmap matchHeight (
           Context context,
           @DrawableRes int id,
           int heightSize ) {
@@ -279,11 +550,41 @@ public class BitmapReader {
       /**
        * 解析一个图片资源到匹配设定的尺寸,即满足高度要求
        *
+       * @param context 提供resource
+       * @param id 资源id
+       * @param heightSize 要求的宽度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchHeightRgb (
+          Context context,
+          @DrawableRes int id,
+          int heightSize ) {
+
+            BitmapFactory.Options options = new Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource( context.getResources(), id, options );
+
+            options.inDensity = options.outHeight;
+            options.inTargetDensity = heightSize;
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
+
+            return BitmapFactory.decodeResource( context.getResources(), id, options );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足高度要求
+       *
        * @param heightSize 要求的高度
        *
        * @return bitmap
        */
-      public static Bitmap decodeBitmapToMatchHeight (
+      public static Bitmap matchHeight (
           File file,
           int heightSize ) {
 
@@ -296,6 +597,33 @@ public class BitmapReader {
 
             options.inScaled = true;
             options.inJustDecodeBounds = false;
+
+            return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足高度要求
+       *
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchHeightRgb (
+          File file,
+          int heightSize ) {
+
+            BitmapFactory.Options options = new Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+
+            options.inDensity = options.outHeight;
+            options.inTargetDensity = heightSize;
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+
+            // 设置格式为RGB565
+            options.inPreferredConfig = Config.RGB_565;
 
             return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
       }
