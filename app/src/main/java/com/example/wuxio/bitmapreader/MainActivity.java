@@ -1,6 +1,7 @@
 package com.example.wuxio.bitmapreader;
 
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -79,8 +80,13 @@ public class MainActivity extends AppCompatActivity {
 
       private void scaleSrc ( int width, int height ) {
 
-            Bitmap bitmap = BitmapReader
-                .sampledBitmap( this, R.drawable.src, width, height );
+            Bitmap bitmap = BitmapReader.sampledBitmap(
+                this,
+                R.drawable.src,
+                width,
+                height,
+                Config.ARGB_8888
+            );
             mImageView.setImageBitmap( bitmap );
             setTextView( bitmap );
       }
@@ -88,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
       private void scaleSrcRgb ( int width, int height ) {
 
             Bitmap bitmap = BitmapReader
-                .sampledBitmapRgb( this, R.drawable.src, width, height );
+                .sampledBitmap( this, R.drawable.src, width, height );
             mImageView.setImageBitmap( bitmap );
             setTextView( bitmap );
       }
@@ -96,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
       private void maxScaleSrc ( int width, int height ) {
 
             Bitmap bitmap = BitmapReader
-                .maxSampledBitmap( this, R.drawable.src, width, height );
+                .maxSampledBitmap( this, R.drawable.src, width, height, Config.ARGB_8888 );
             mImageView.setImageBitmap( bitmap );
             setTextView( bitmap );
       }
@@ -104,29 +110,29 @@ public class MainActivity extends AppCompatActivity {
       private void maxScaleSrcRgb ( int width, int height ) {
 
             Bitmap bitmap = BitmapReader
-                .maxSampledBitmapRgb( this, R.drawable.src, width, height );
+                .maxSampledBitmap( this, R.drawable.src, width, height );
             mImageView.setImageBitmap( bitmap );
             setTextView( bitmap );
       }
 
       private void matchSize ( int width, int height ) {
 
-            Bitmap bitmap = BitmapReader.matchSize( this, R.drawable.src, 500, 500 );
+            Bitmap bitmap = BitmapReader.matchSize(
+                this,
+                R.drawable.src,
+                500,
+                500,
+                Config.ARGB_8888
+            );
 
             mImageView.setImageBitmap( bitmap );
-
-            Log.e( TAG, "matchSize : size:"
-                + bitmap.getAllocationByteCount()
-                + " width: " + bitmap.getWidth() + " "
-                + bitmap.getHeight()
-            );
 
             setTextView( bitmap );
       }
 
       private void matchSizeRgb ( int width, int height ) {
 
-            Bitmap bitmap = BitmapReader.matchSizeRgb(
+            Bitmap bitmap = BitmapReader.matchSize(
                 this,
                 R.drawable.src,
                 500,
@@ -135,16 +141,24 @@ public class MainActivity extends AppCompatActivity {
 
             mImageView.setImageBitmap( bitmap );
 
-            Log.e( TAG, "matchSize : size:"
-                + bitmap.getAllocationByteCount()
-                + " width: " + bitmap.getWidth() + " "
-                + bitmap.getHeight()
-            );
-
             setTextView( bitmap );
       }
 
       private void matchWidth ( int width ) {
+
+            Bitmap bitmap = BitmapReader.matchWidth(
+                this,
+                R.drawable.src,
+                width,
+                Config.ARGB_8888
+            );
+
+            mImageView.setImageBitmap( bitmap );
+
+            setTextView( bitmap );
+      }
+
+      private void matchWidthRgb ( int width ) {
 
             Bitmap bitmap = BitmapReader.matchWidth( this, R.drawable.src, width );
 
@@ -159,39 +173,23 @@ public class MainActivity extends AppCompatActivity {
             setTextView( bitmap );
       }
 
-      private void matchWidthRgb ( int width ) {
-
-            Bitmap bitmap = BitmapReader.matchWidthRgb( this, R.drawable.src, width );
-
-            mImageView.setImageBitmap( bitmap );
-
-            Log.e( TAG, "matchWidth : byteCount:"
-                + bitmap.getAllocationByteCount()
-                + " width: " + bitmap.getWidth() + " "
-                + bitmap.getHeight()
-            );
-
-            setTextView( bitmap );
-      }
-
       private void matchHeight ( int height ) {
 
-            Bitmap bitmap = BitmapReader.matchHeight( this, R.drawable.src, height );
+            Bitmap bitmap = BitmapReader.matchHeight(
+                this,
+                R.drawable.src,
+                height,
+                Config.ARGB_8888
+            );
 
             mImageView.setImageBitmap( bitmap );
-
-            Log.e( TAG, "matchWidth : byteCount:"
-                + bitmap.getAllocationByteCount()
-                + " width: " + bitmap.getWidth() + " "
-                + bitmap.getHeight()
-            );
 
             setTextView( bitmap );
       }
 
       private void matchHeightRgb ( int height ) {
 
-            Bitmap bitmap = BitmapReader.matchHeightRgb( this, R.drawable.src, height );
+            Bitmap bitmap = BitmapReader.matchHeight( this, R.drawable.src, height );
 
             mImageView.setImageBitmap( bitmap );
 
