@@ -52,20 +52,20 @@ public class MainActivity extends AppCompatActivity {
             mImageView.setImageResource( R.drawable.src );
             Bitmap bitmap = ( (BitmapDrawable) mImageView.getDrawable() ).getBitmap();
             int count = bitmap.getAllocationByteCount();
-            setTextView( mTextView, count, bitmap.getWidth(), bitmap.getHeight() );
+            setTextView( bitmap );
       }
 
       private void setTextView (
-          TextView textView, int byteCount, int bitmapWidth, int bitmapHeight ) {
+          Bitmap bitmap ) {
 
             String format = String.format(
                 Locale.CHINA,
-                "原始大小: %d;   bitmap宽: %d, 高: %d",
-                byteCount,
-                bitmapWidth,
-                bitmapHeight
+                "图片大小: %d; 宽: %d, 高: %d",
+                bitmap.getAllocationByteCount(),
+                bitmap.getWidth(),
+                bitmap.getHeight()
             );
-            textView.setText( format );
+            mTextView.setText( format );
       }
 
       //============================ item click ============================
@@ -82,8 +82,15 @@ public class MainActivity extends AppCompatActivity {
             Bitmap bitmap = BitmapReader
                 .sampledBitmap( this, R.drawable.src, width, height );
             mImageView.setImageBitmap( bitmap );
-            setTextView(
-                mTextView, bitmap.getAllocationByteCount(), bitmap.getWidth(), bitmap.getHeight() );
+            setTextView( bitmap );
+      }
+
+      private void scaleSrcRgb ( int width, int height ) {
+
+            Bitmap bitmap = BitmapReader
+                .sampledBitmapRgb( this, R.drawable.src, width, height );
+            mImageView.setImageBitmap( bitmap );
+            setTextView( bitmap );
       }
 
       private void maxScaleSrc ( int width, int height ) {
@@ -91,8 +98,15 @@ public class MainActivity extends AppCompatActivity {
             Bitmap bitmap = BitmapReader
                 .maxSampledBitmap( this, R.drawable.src, width, height );
             mImageView.setImageBitmap( bitmap );
-            setTextView(
-                mTextView, bitmap.getAllocationByteCount(), bitmap.getWidth(), bitmap.getHeight() );
+            setTextView( bitmap );
+      }
+
+      private void maxScaleSrcRgb ( int width, int height ) {
+
+            Bitmap bitmap = BitmapReader
+                .maxSampledBitmapRgb( this, R.drawable.src, width, height );
+            mImageView.setImageBitmap( bitmap );
+            setTextView( bitmap );
       }
 
       private void matchSize ( int width, int height ) {
@@ -107,12 +121,27 @@ public class MainActivity extends AppCompatActivity {
                 + bitmap.getHeight()
             );
 
-            setTextView(
-                mTextView,
-                bitmap.getAllocationByteCount(),
-                bitmap.getWidth(),
-                bitmap.getHeight()
+            setTextView( bitmap );
+      }
+
+      private void matchSizeRgb ( int width, int height ) {
+
+            Bitmap bitmap = BitmapReader.matchSizeRgb(
+                this,
+                R.drawable.src,
+                500,
+                500
             );
+
+            mImageView.setImageBitmap( bitmap );
+
+            Log.e( TAG, "matchSize : size:"
+                + bitmap.getAllocationByteCount()
+                + " width: " + bitmap.getWidth() + " "
+                + bitmap.getHeight()
+            );
+
+            setTextView( bitmap );
       }
 
       private void matchWidth ( int width ) {
@@ -127,12 +156,22 @@ public class MainActivity extends AppCompatActivity {
                 + bitmap.getHeight()
             );
 
-            setTextView(
-                mTextView,
-                bitmap.getAllocationByteCount(),
-                bitmap.getWidth(),
-                bitmap.getHeight()
+            setTextView( bitmap );
+      }
+
+      private void matchWidthRgb ( int width ) {
+
+            Bitmap bitmap = BitmapReader.matchWidthRgb( this, R.drawable.src, width );
+
+            mImageView.setImageBitmap( bitmap );
+
+            Log.e( TAG, "matchWidth : byteCount:"
+                + bitmap.getAllocationByteCount()
+                + " width: " + bitmap.getWidth() + " "
+                + bitmap.getHeight()
             );
+
+            setTextView( bitmap );
       }
 
       private void matchHeight ( int height ) {
@@ -147,12 +186,22 @@ public class MainActivity extends AppCompatActivity {
                 + bitmap.getHeight()
             );
 
-            setTextView(
-                mTextView,
-                bitmap.getAllocationByteCount(),
-                bitmap.getWidth(),
-                bitmap.getHeight()
+            setTextView( bitmap );
+      }
+
+      private void matchHeightRgb ( int height ) {
+
+            Bitmap bitmap = BitmapReader.matchHeightRgb( this, R.drawable.src, height );
+
+            mImageView.setImageBitmap( bitmap );
+
+            Log.e( TAG, "matchWidth : byteCount:"
+                + bitmap.getAllocationByteCount()
+                + " width: " + bitmap.getWidth() + " "
+                + bitmap.getHeight()
             );
+
+            setTextView( bitmap );
       }
 
       private class MainMenuItemClick implements NavigationView.OnNavigationItemSelectedListener {
@@ -185,6 +234,27 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.menu05:
                               matchHeight( 500 );
                               break;
+
+                        case R.id.menu06:
+                              scaleSrcRgb( 500, 500 );
+                              break;
+
+                        case R.id.menu07:
+                              maxScaleSrcRgb( 500, 500 );
+                              break;
+
+                        case R.id.menu08:
+                              matchSizeRgb( 500, 500 );
+                              break;
+
+                        case R.id.menu09:
+                              matchWidthRgb( 500 );
+                              break;
+
+                        case R.id.menu10:
+                              matchHeightRgb( 500 );
+                              break;
+
                         default:
                               break;
                   }

@@ -9,23 +9,43 @@
 
             <item
                 android:id="@+id/menu01"
-                android:title="宽度500,高度500"/>
+                android:title="宽度500,高度500,使用sample"/>
+            <item
+                android:id="@+id/menu06"
+                android:title="宽度500,高度500,使用sample RGB565"/>
 
             <item
                 android:id="@+id/menu02"
-                android:title="宽度500,高度500; 极限"/>
+                android:title="宽度500,高度500;使用maxSample"/>
+
+            <item
+                android:id="@+id/menu07"
+                android:title="宽度500,高度500;使用maxSample RGB565"/>
 
             <item
                 android:id="@+id/menu03"
-                android:title="matchSize 500 500:"/>
+                android:title="matchSize 500 500"/>
+
+            <item
+                android:id="@+id/menu08"
+                android:title="matchSize 500 500 RGB565"/>
 
             <item
                 android:id="@+id/menu04"
                 android:title="match width: 500"/>
 
             <item
+                android:id="@+id/menu09"
+                android:title="match width: 500 RGB565"/>
+
+            <item
                 android:id="@+id/menu05"
                 android:title="match height: 500"/>
+
+            <item
+                android:id="@+id/menu10"
+                android:title="match height: 500 RGB565"/>
+
       </group>
 
 </menu>
