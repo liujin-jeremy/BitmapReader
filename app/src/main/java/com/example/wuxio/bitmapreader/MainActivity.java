@@ -1,5 +1,7 @@
 package com.example.wuxio.bitmapreader;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.bitmapreader.BitmapReader;
+import com.example.bitmapreader.ScreenSize;
 import java.util.Locale;
 
 /**
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate( savedInstanceState );
             super.setContentView( R.layout.activity_main );
             initView();
+            ScreenSize.init( this );
       }
 
       private void initView ( ) {
@@ -253,6 +257,25 @@ public class MainActivity extends AppCompatActivity {
                               matchHeightRgb( 500 );
                               break;
 
+                        case R.id.menu11:
+                              int width = ScreenSize.getWidth();
+                              Log.e( TAG, "onNavigationItemSelected : width " + width );
+                              break;
+
+                        case R.id.menu12:
+                              int height = ScreenSize.getHeight();
+                              Log.e( TAG, "onNavigationItemSelected : height " + height );
+                              break;
+
+                        case R.id.menu13:
+                              float dpSize = ScreenSize.dp( 10 );
+                              Log.e( TAG, "onNavigationItemSelected : height " + dpSize );
+                              int statusBarHeight = getStatusBarHeight( MainActivity.this );
+                              Log.e(
+                                  TAG,
+                                  "onNavigationItemSelected : status height " + statusBarHeight
+                              );
+                              break;
                         default:
                               break;
                   }
@@ -260,5 +283,20 @@ public class MainActivity extends AppCompatActivity {
                   closeDrawer();
                   return true;
             }
+      }
+
+      public static int getStatusBarHeight ( Context context ) {
+
+            int statusBarHeight = 0;
+            Resources res = context.getResources();
+            int resourceId = res.getIdentifier(
+                "status_bar_height",
+                "dimen",
+                "android"
+            );
+            if( resourceId > 0 ) {
+                  statusBarHeight = res.getDimensionPixelSize( resourceId );
+            }
+            return statusBarHeight;
       }
 }

@@ -2,6 +2,7 @@ package com.example.bitmapreader;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 /**
  * @author: Liujin
@@ -11,14 +12,17 @@ import android.util.DisplayMetrics;
  */
 public class ScreenSize {
 
-      private static int sWidth  = -1;
-      private static int sHeight = -1;
+      private static int   sWidth;
+      private static int   sHeight;
+      private static float s1Dp;
 
       public static void init ( Context context ) {
 
             DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             sWidth = displayMetrics.widthPixels;
             sHeight = displayMetrics.heightPixels;
+
+            s1Dp = TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 1f, displayMetrics );
       }
 
       public static int getWidth ( ) {
@@ -39,5 +43,10 @@ public class ScreenSize {
       public static int getHeight ( float percent ) {
 
             return (int) ( sHeight * percent );
+      }
+
+      public static float dp ( float dpSize ) {
+
+            return dpSize * s1Dp;
       }
 }
