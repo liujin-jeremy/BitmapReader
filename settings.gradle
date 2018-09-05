@@ -1,1 +1,1 @@
-include ':app', ':bitmapreader'
+include ':app', ':bitmapReader'
