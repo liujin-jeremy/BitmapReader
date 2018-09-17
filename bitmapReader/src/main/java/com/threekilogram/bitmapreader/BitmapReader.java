@@ -17,6 +17,62 @@ import java.io.File;
 public class BitmapReader {
 
       /**
+       * 读取原图,使用RGB_565格式
+       *
+       * @param context context
+       * @param id 资源ID
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap readRgb ( Context context, @DrawableRes int id ) {
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Config.RGB_565;
+
+            return BitmapFactory.decodeResource( context.getResources(), id, options );
+      }
+
+      /**
+       * 读取原图,使用ARGB_8888格式
+       *
+       * @param context context
+       * @param id 资源ID
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap readArgb ( Context context, @DrawableRes int id ) {
+
+            return BitmapFactory.decodeResource( context.getResources(), id );
+      }
+
+      /**
+       * 读取原图,使用RGB_565格式
+       *
+       * @param file bitmap file
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap readRgb ( File file ) {
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Config.RGB_565;
+
+            return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+      }
+
+      /**
+       * 读取原图,使用ARGB_8888格式
+       *
+       * @param file bitmap file
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap readArgb ( File file ) {
+
+            return BitmapFactory.decodeFile( file.getAbsolutePath() );
+      }
+
+      /**
        * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
        *
        * @param context context
