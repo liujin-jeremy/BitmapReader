@@ -6,7 +6,10 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.support.annotation.DrawableRes;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * 按照配置读取bitmap
@@ -15,6 +18,8 @@ import java.io.File;
  * @date 2017-05-30
  */
 public class BitmapReader {
+
+      private static final String TAG = BitmapReader.class.getSimpleName();
 
       /**
        * 读取原图,使用RGB_565格式
@@ -73,6 +78,33 @@ public class BitmapReader {
       }
 
       /**
+       * 读取原图,使用RGB_565格式
+       *
+       * @param stream stream
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap readRgb ( InputStream stream ) {
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Config.RGB_565;
+
+            return BitmapFactory.decodeStream( stream, null, options );
+      }
+
+      /**
+       * 读取原图,使用ARGB_8888格式
+       *
+       * @param stream stream
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap readArgb ( InputStream stream ) {
+
+            return BitmapFactory.decodeStream( stream, null, null );
+      }
+
+      /**
        * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
        *
        * @param context context
@@ -119,57 +151,6 @@ public class BitmapReader {
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
 
-            options.inPreferredConfig = config;
-
-            return BitmapFactory.decodeResource( context.getResources(), resId, options );
-      }
-
-      /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
-       *
-       * @param context context
-       * @param resId 资源id
-       * @param reqWidth 期望宽度
-       * @param reqHeight 期望高度
-       *
-       * @return 压缩后图片
-       */
-      public static Bitmap maxSampledBitmap (
-          Context context,
-          @DrawableRes int resId,
-          int reqWidth,
-          int reqHeight ) {
-
-            return maxSampledBitmap( context, resId, reqWidth, reqHeight, Config.RGB_565 );
-      }
-
-      /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
-       *
-       * @param context context
-       * @param resId 资源id
-       * @param reqWidth 期望宽度
-       * @param reqHeight 期望高度
-       * @param config 图片像素配置
-       *
-       * @return 压缩后图片
-       */
-      public static Bitmap maxSampledBitmap (
-          Context context,
-          @DrawableRes int resId,
-          int reqWidth,
-          int reqHeight,
-          Config config ) {
-
-            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeResource( context.getResources(), resId, options );
-
-            // 调用下面定义的方法计算inSampleSize值
-            options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
-            // 使用获取到的inSampleSize值再次解析图片
-            options.inJustDecodeBounds = false;
             options.inPreferredConfig = config;
 
             return BitmapFactory.decodeResource( context.getResources(), resId, options );
@@ -225,6 +206,118 @@ public class BitmapReader {
       }
 
       /**
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       *
+       * @param stream stream
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap sampledBitmap ( InputStream stream, int reqWidth, int reqHeight ) {
+
+            return sampledBitmap( stream, reqWidth, reqHeight, Config.RGB_565 );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       *
+       * @param stream stream
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       * @param config 图片像素配置
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap sampledBitmap (
+          InputStream stream,
+          int reqWidth,
+          int reqHeight,
+          Config config ) {
+
+            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
+            inputStream.mark( 1024 );
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream( inputStream, null, options );
+
+            // 调用下面定义的方法计算inSampleSize值
+            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
+
+            // 使用获取到的inSampleSize值再次解析图片
+            options.inJustDecodeBounds = false;
+            // 配置格式
+            options.inPreferredConfig = config;
+
+            try {
+                  inputStream.reset();
+                  return BitmapFactory.decodeStream( inputStream, null, options );
+            } catch(IOException e) {
+
+                  try {
+                        inputStream.close();
+                  } catch(IOException e1) {
+                        e1.printStackTrace();
+                  }
+            }
+
+            return null;
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       *
+       * @param context context
+       * @param resId 资源id
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap maxSampledBitmap (
+          Context context,
+          @DrawableRes int resId,
+          int reqWidth,
+          int reqHeight ) {
+
+            return maxSampledBitmap( context, resId, reqWidth, reqHeight, Config.RGB_565 );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       *
+       * @param context context
+       * @param resId 资源id
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       * @param config 图片像素配置
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap maxSampledBitmap (
+          Context context,
+          @DrawableRes int resId,
+          int reqWidth,
+          int reqHeight,
+          Config config ) {
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource( context.getResources(), resId, options );
+
+            // 调用下面定义的方法计算inSampleSize值
+            options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
+            // 使用获取到的inSampleSize值再次解析图片
+            options.inJustDecodeBounds = false;
+            options.inPreferredConfig = config;
+
+            return BitmapFactory.decodeResource( context.getResources(), resId, options );
+      }
+
+      /**
        * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
        *
        * @param file 本地文件
@@ -271,6 +364,67 @@ public class BitmapReader {
             options.inPreferredConfig = config;
 
             return BitmapFactory.decodeFile( path );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       *
+       * @param stream stream
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap maxSampledBitmap ( InputStream stream, int reqWidth, int reqHeight ) {
+
+            return maxSampledBitmap( stream, reqWidth, reqHeight, Config.RGB_565 );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       *
+       * @param stream stream
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       * @param config 图片像素配置
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap maxSampledBitmap (
+          InputStream stream,
+          int reqWidth,
+          int reqHeight,
+          Config config ) {
+
+            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
+            inputStream.mark( 1024 );
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream( inputStream, null, options );
+
+            // 调用下面定义的方法计算inSampleSize值
+            options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
+
+            // 使用获取到的inSampleSize值再次解析图片
+            options.inJustDecodeBounds = false;
+            // 配置格式
+            options.inPreferredConfig = config;
+
+            try {
+                  inputStream.reset();
+                  return BitmapFactory.decodeStream( inputStream, null, options );
+            } catch(IOException e) {
+
+                  try {
+                        inputStream.close();
+                  } catch(IOException e1) {
+                        e1.printStackTrace();
+                  }
+            }
+
+            return null;
       }
 
       /**
@@ -407,6 +561,82 @@ public class BitmapReader {
       }
 
       /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       *
+       * @param stream stream
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSize (
+          InputStream stream,
+          int widthSize,
+          int heightSize ) {
+
+            return matchSize( stream, widthSize, heightSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       *
+       * @param stream stream
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSize (
+          InputStream stream,
+          int widthSize,
+          int heightSize,
+          Config config ) {
+
+            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
+            inputStream.mark( 1024 );
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream( inputStream, null, options );
+
+            int outWidth = options.outWidth;
+            int outHeight = options.outHeight;
+
+            float fateWidth = outWidth * 1f / widthSize;
+            float fateHeight = outHeight * 1f / heightSize;
+
+            if( fateHeight > fateWidth ) {
+
+                  options.inDensity = outHeight;
+                  options.inTargetDensity = heightSize;
+            } else {
+
+                  options.inDensity = outWidth;
+                  options.inTargetDensity = widthSize;
+            }
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+            options.inPreferredConfig = config;
+
+            try {
+                  inputStream.reset();
+                  return BitmapFactory.decodeStream( inputStream, null, options );
+            } catch(IOException e) {
+
+                  try {
+                        inputStream.close();
+                  } catch(IOException e1) {
+                        e1.printStackTrace();
+                  }
+            }
+
+            return null;
+      }
+
+      /**
        * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
        *
        * @param context 提供resource
@@ -498,6 +728,64 @@ public class BitmapReader {
       }
 
       /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
+       *
+       * @param stream stream
+       * @param widthSize 要求的宽度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchWidth (
+          InputStream stream,
+          int widthSize ) {
+
+            return matchWidth( stream, widthSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
+       *
+       * @param stream stream
+       * @param widthSize 要求的宽度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchWidth (
+          InputStream stream,
+          int widthSize,
+          Config config ) {
+
+            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
+            inputStream.mark( 1024 );
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream( inputStream, null, options );
+
+            options.inDensity = options.outWidth;
+            options.inTargetDensity = widthSize;
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+            options.inPreferredConfig = config;
+
+            try {
+                  inputStream.reset();
+                  return BitmapFactory.decodeStream( inputStream, null, options );
+            } catch(IOException e) {
+
+                  try {
+                        inputStream.close();
+                  } catch(IOException e1) {
+                        e1.printStackTrace();
+                  }
+            }
+
+            return null;
+      }
+
+      /**
        * 解析一个图片资源到匹配设定的尺寸,即满足高度要求
        *
        * @param context 提供resource
@@ -586,6 +874,64 @@ public class BitmapReader {
             options.inPreferredConfig = config;
 
             return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足高度要求
+       *
+       * @param stream stream
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchHeight (
+          InputStream stream,
+          int heightSize ) {
+
+            return matchHeight( stream, heightSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足高度要求
+       *
+       * @param stream stream
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchHeight (
+          InputStream stream,
+          int heightSize,
+          Config config ) {
+
+            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
+            inputStream.mark( 1024 );
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream( inputStream, null, options );
+
+            options.inDensity = options.outHeight;
+            options.inTargetDensity = heightSize;
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+            options.inPreferredConfig = config;
+
+            try {
+                  inputStream.reset();
+                  return BitmapFactory.decodeStream( inputStream, null, options );
+            } catch(IOException e) {
+
+                  try {
+                        inputStream.close();
+                  } catch(IOException e1) {
+                        e1.printStackTrace();
+                  }
+            }
+
+            return null;
       }
 
       /**

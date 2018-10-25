@@ -276,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
                                   "onNavigationItemSelected : status height " + statusBarHeight
                               );
                               break;
+
                         default:
                               break;
                   }
@@ -283,6 +284,10 @@ public class MainActivity extends AppCompatActivity {
                   closeDrawer();
                   return true;
             }
+      }
+
+      private void decodeStream ( ) {
+
       }
 
       public static int getStatusBarHeight ( Context context ) {
