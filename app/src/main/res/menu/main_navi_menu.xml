@@ -46,18 +46,6 @@
                 android:id="@+id/menu10"
                 android:title="match height: 500 RGB565"/>
 
-            <item
-                android:id="@+id/menu11"
-                android:title="screen width"/>
-
-            <item
-                android:id="@+id/menu12"
-                android:title="screen height"/>
-
-            <item
-                android:id="@+id/menu13"
-                android:title="10dp"/>
-
 
       </group>
 
