@@ -17,10 +17,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    lintOptions {
-        abortOnError false
-    }
 }
 
 dependencies {
@@ -38,6 +34,7 @@ group = "tech.threekilogram"
 // 版本号，下次更新是只需要更改版本号即可
 version = "1.2.5"
 
+
 //生成源文件
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -45,16 +42,17 @@ task sourcesJar(type: Jar) {
 }
 
 //生成Javadoc文档
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+
 
 //文档打包成jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
 
 //拷贝javadoc文件
 task copyDoc(type: Copy) {
@@ -64,7 +62,7 @@ task copyDoc(type: Copy) {
 
 //上传到JCenter所需要的源码文件
 artifacts {
-    archives javadocJar
+    //archives javadocJar
     archives sourcesJar
 }
 
@@ -113,7 +111,7 @@ bintray {
     configurations = ['archives']
     pkg {
         //注意：这里的repo值必须要和你创建Maven仓库的时候的名字一样
-        repo = "ssy"
+        repo = "maven"
         //发布到JCenter上的项目名字
         name = libName
         //项目描述
@@ -122,13 +120,5 @@ bintray {
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
         publish = true
-    }
-}
-
-javadoc {
-    options {
-        //如果你的项目里面有中文注释的话，必须将格式设置为UTF-8，不然会出现乱码
-        encoding "UTF-8"
-        charSet 'UTF-8'
     }
 }

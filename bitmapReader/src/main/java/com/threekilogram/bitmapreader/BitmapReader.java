@@ -16,7 +16,6 @@ import java.io.InputStream;
  * 按照配置读取bitmap
  *
  * @author wuxio
- * @date 2017-05-30
  */
 public class BitmapReader {
 
