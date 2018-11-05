@@ -276,6 +276,12 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.menu15:
                               clipCenter();
                               break;
+                        case R.id.menu16:
+                              matchMost();
+                              break;
+                        case R.id.menu17:
+                              matchMostArgb();
+                              break;
 
                         default:
                               break;
@@ -284,6 +290,21 @@ public class MainActivity extends AppCompatActivity {
                   closeDrawer();
                   return true;
             }
+      }
+
+      private void matchMostArgb ( ) {
+
+            Bitmap bitmap = BitmapReader
+                .matchSizeMost( this, R.drawable.src, 500, 500, Config.ARGB_8888 );
+            mImageView.setImageBitmap( bitmap );
+            setTextView( bitmap );
+      }
+
+      private void matchMost ( ) {
+
+            Bitmap bitmap = BitmapReader.matchSizeMost( this, R.drawable.src, 500, 500 );
+            mImageView.setImageBitmap( bitmap );
+            setTextView( bitmap );
       }
 
       private void clipCenter ( ) {

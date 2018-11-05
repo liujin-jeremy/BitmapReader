@@ -30,6 +30,15 @@
                 android:id="@+id/menu08"
                 android:title="matchSize 500 500 RGB565"/>
 
+
+            <item
+                android:id="@+id/menu17"
+                android:title="matchSizeMost 500 500"/>
+
+            <item
+                android:id="@+id/menu16"
+                android:title="matchSizeMost 500 500 RGB565"/>
+
             <item
                 android:id="@+id/menu04"
                 android:title="match width: 500"/>
