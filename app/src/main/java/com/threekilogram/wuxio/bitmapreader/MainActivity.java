@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.threekilogram.bitmapreader.BitmapReader;
 import java.util.Locale;
-import tech.threekilogram.screen.ScreenSize;
 
 /**
  * @author liujin
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate( savedInstanceState );
             super.setContentView( R.layout.activity_main );
             initView();
-            ScreenSize.init( this );
       }
 
       private void initView ( ) {
