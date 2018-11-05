@@ -258,23 +258,23 @@ public class MainActivity extends AppCompatActivity {
                               break;
 
                         case R.id.menu11:
-                              int width = ScreenSize.getWidth();
-                              Log.e( TAG, "onNavigationItemSelected : width " + width );
+                              clipStart();
                               break;
 
                         case R.id.menu12:
-                              int height = ScreenSize.getHeight();
-                              Log.e( TAG, "onNavigationItemSelected : height " + height );
+                              clipEnd();
                               break;
 
                         case R.id.menu13:
-                              float dpSize = ScreenSize.dpToPx( 10 );
-                              Log.e( TAG, "onNavigationItemSelected : height " + dpSize );
-                              int statusBarHeight = getStatusBarHeight( MainActivity.this );
-                              Log.e(
-                                  TAG,
-                                  "onNavigationItemSelected : status height " + statusBarHeight
-                              );
+                              clipLeft();
+                              break;
+
+                        case R.id.menu14:
+                              clipRight();
+                              break;
+
+                        case R.id.menu15:
+                              clipCenter();
                               break;
 
                         default:
@@ -284,6 +284,66 @@ public class MainActivity extends AppCompatActivity {
                   closeDrawer();
                   return true;
             }
+      }
+
+      private void clipCenter ( ) {
+
+            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+
+            bitmap = BitmapReader.clipCenter( bitmap, 500, 500 );
+            mImageView.setImageBitmap( bitmap );
+
+            setTextView( bitmap );
+      }
+
+      private void clipRight ( ) {
+
+            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+
+            bitmap = BitmapReader.clipRight( bitmap, 500 );
+            mImageView.setImageBitmap( bitmap );
+
+            setTextView( bitmap );
+      }
+
+      private void clipLeft ( ) {
+
+            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+
+            bitmap = BitmapReader.clipLeft( bitmap, 500 );
+            mImageView.setImageBitmap( bitmap );
+
+            setTextView( bitmap );
+      }
+
+      private void clipEnd ( ) {
+
+            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+
+            bitmap = BitmapReader.clipEnd( bitmap, 500 );
+            mImageView.setImageBitmap( bitmap );
+
+            setTextView( bitmap );
+      }
+
+      private void clipStart ( ) {
+
+            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+
+            bitmap = BitmapReader.clipStart( bitmap, 500 );
+            mImageView.setImageBitmap( bitmap );
+
+            setTextView( bitmap );
       }
 
       private void decodeStream ( ) {

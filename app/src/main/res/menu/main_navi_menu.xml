@@ -46,6 +46,26 @@
                 android:id="@+id/menu10"
                 android:title="match height: 500 RGB565"/>
 
+            <item
+                android:id="@+id/menu11"
+                android:title="clip start"/>
+
+            <item
+                android:id="@+id/menu12"
+                android:title="clipEnd"/>
+
+            <item
+                android:id="@+id/menu13"
+                android:title="clip left"/>
+
+            <item
+                android:id="@+id/menu14"
+                android:title="clip right"/>
+
+            <item
+                android:id="@+id/menu15"
+                android:title="clip center"/>
+
 
       </group>
 
