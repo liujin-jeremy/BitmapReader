@@ -126,7 +126,7 @@ bintray {
 }
 
 javadoc {
-    options{
+    options {
         //如果你的项目里面有中文注释的话，必须将格式设置为UTF-8，不然会出现乱码
         encoding "UTF-8"
         charSet 'UTF-8'
