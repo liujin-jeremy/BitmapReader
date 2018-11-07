@@ -38,3 +38,4 @@ Bitmap bitmap = BitmapReader.matchWidth( this, R.drawable.src, width );
 // 将图片压缩至高度符合设置的要求
 Bitmap bitmap = BitmapReader.matchHeight( this, R.drawable.src, height );
 ```
+
