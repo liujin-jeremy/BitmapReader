@@ -29,10 +29,7 @@ public class BitmapReader {
        */
       public static Bitmap read ( Context context, @DrawableRes int id ) {
 
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Config.RGB_565;
-
-            return BitmapFactory.decodeResource( context.getResources(), id, options );
+            return read( context, id, Config.RGB_565 );
       }
 
       /**
@@ -56,10 +53,7 @@ public class BitmapReader {
        */
       public static Bitmap read ( String path ) {
 
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Config.RGB_565;
-
-            return BitmapFactory.decodeFile( path, options );
+            return read( path, Config.RGB_565 );
       }
 
       /**
@@ -71,10 +65,7 @@ public class BitmapReader {
        */
       public static Bitmap read ( FileDescriptor fileDescriptor ) {
 
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Config.RGB_565;
-
-            return BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
+            return read( fileDescriptor, Config.RGB_565 );
       }
 
       /**
@@ -86,10 +77,7 @@ public class BitmapReader {
        */
       public static Bitmap read ( InputStream stream ) {
 
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Config.RGB_565;
-
-            return BitmapFactory.decodeStream( stream, null, options );
+            return read( stream, Config.RGB_565 );
       }
 
       /**
