@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void clipCenter ( ) {
 
-            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            Bitmap bitmap = BitmapReader.read( this, R.drawable.src );
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
 
@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void clipRight ( ) {
 
-            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            Bitmap bitmap = BitmapReader.read( this, R.drawable.src );
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
 
@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void clipLeft ( ) {
 
-            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            Bitmap bitmap = BitmapReader.read( this, R.drawable.src );
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
 
@@ -343,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void clipEnd ( ) {
 
-            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            Bitmap bitmap = BitmapReader.read( this, R.drawable.src );
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
 
@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void clipStart ( ) {
 
-            Bitmap bitmap = BitmapReader.readRgb( this, R.drawable.src );
+            Bitmap bitmap = BitmapReader.read( this, R.drawable.src );
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
 

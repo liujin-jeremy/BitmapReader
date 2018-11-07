@@ -27,7 +27,7 @@ public class BitmapReader {
        *
        * @return 资源对应bitmap
        */
-      public static Bitmap readRgb ( Context context, @DrawableRes int id ) {
+      public static Bitmap read ( Context context, @DrawableRes int id ) {
 
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Config.RGB_565;
@@ -42,27 +42,24 @@ public class BitmapReader {
        *
        * @return 资源对应bitmap
        */
-      public static Bitmap readRgb ( File file ) {
+      public static Bitmap read ( File file ) {
 
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Config.RGB_565;
-
-            return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+            return read( file.getAbsolutePath() );
       }
 
       /**
        * 读取原图,使用RGB_565格式
        *
-       * @param stream stream
+       * @param path :file path
        *
        * @return 资源对应bitmap
        */
-      public static Bitmap readRgb ( InputStream stream ) {
+      public static Bitmap read ( String path ) {
 
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Config.RGB_565;
 
-            return BitmapFactory.decodeStream( stream, null, options );
+            return BitmapFactory.decodeFile( path, options );
       }
 
       /**
@@ -72,7 +69,7 @@ public class BitmapReader {
        *
        * @return 资源对应bitmap
        */
-      public static Bitmap readRgb ( FileDescriptor fileDescriptor ) {
+      public static Bitmap read ( FileDescriptor fileDescriptor ) {
 
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Config.RGB_565;
@@ -81,52 +78,91 @@ public class BitmapReader {
       }
 
       /**
-       * 读取原图,使用ARGB_8888格式
+       * 读取原图,使用RGB_565格式
+       *
+       * @param stream stream
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap read ( InputStream stream ) {
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Config.RGB_565;
+
+            return BitmapFactory.decodeStream( stream, null, options );
+      }
+
+      /**
+       * 读取原图
        *
        * @param context context
        * @param id 资源ID
        *
        * @return 资源对应bitmap
        */
-      public static Bitmap readArgb ( Context context, @DrawableRes int id ) {
+      public static Bitmap read ( Context context, @DrawableRes int id, Config config ) {
 
-            return BitmapFactory.decodeResource( context.getResources(), id );
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = config;
+
+            return BitmapFactory.decodeResource( context.getResources(), id, options );
       }
 
       /**
-       * 读取原图,使用ARGB_8888格式
+       * 读取原图
        *
        * @param file bitmap file
        *
        * @return 资源对应bitmap
        */
-      public static Bitmap readArgb ( File file ) {
+      public static Bitmap read ( File file, Config config ) {
 
-            return BitmapFactory.decodeFile( file.getAbsolutePath() );
+            return read( file.getAbsolutePath(), config );
       }
 
       /**
-       * 读取原图,使用ARGB_8888格式
+       * 读取原图
+       *
+       * @param path :file path
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap read ( String path, Config config ) {
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = config;
+
+            return BitmapFactory.decodeFile( path, options );
+      }
+
+      /**
+       * 读取原图
+       *
+       * @param fileDescriptor :fileDescriptor
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap read ( FileDescriptor fileDescriptor, Config config ) {
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = config;
+
+            return BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
+      }
+
+      /**
+       * 读取原图
        *
        * @param stream stream
        *
        * @return 资源对应bitmap
        */
-      public static Bitmap readArgb ( InputStream stream ) {
+      public static Bitmap read ( InputStream stream, Config config ) {
 
-            return BitmapFactory.decodeStream( stream, null, null );
-      }
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = config;
 
-      /**
-       * 读取原图,使用ARGB_8888格式
-       *
-       * @param fileDescriptor fileDescriptor
-       *
-       * @return 资源对应bitmap
-       */
-      public static Bitmap readArgb ( FileDescriptor fileDescriptor ) {
-
-            return BitmapFactory.decodeFileDescriptor( fileDescriptor, null, null );
+            return BitmapFactory.decodeStream( stream, null, options );
       }
 
       /**
@@ -273,12 +309,29 @@ public class BitmapReader {
           int reqHeight,
           Config config ) {
 
-            String path = file.getPath();
+            return sampledBitmap( file.getAbsolutePath(), reqWidth, reqHeight, config );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       *
+       * @param filePath 本地文件
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       * @param config 图片像素配置
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap sampledBitmap (
+          String filePath,
+          int reqWidth,
+          int reqHeight,
+          Config config ) {
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile( path, options );
+            BitmapFactory.decodeFile( filePath, options );
 
             // 调用下面定义的方法计算inSampleSize值
             options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
@@ -289,7 +342,55 @@ public class BitmapReader {
             // 配置格式
             options.inPreferredConfig = config;
 
-            return BitmapFactory.decodeFile( path, options );
+            return BitmapFactory.decodeFile( filePath, options );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       *
+       * @param fileDescriptor 本地文件
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap sampledBitmap (
+          FileDescriptor fileDescriptor, int reqWidth, int reqHeight ) {
+
+            return sampledBitmap( fileDescriptor, reqWidth, reqHeight, Config.RGB_565 );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       *
+       * @param fileDescriptor 本地文件
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       * @param config 图片像素配置
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap sampledBitmap (
+          FileDescriptor fileDescriptor,
+          int reqWidth,
+          int reqHeight,
+          Config config ) {
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
+
+            // 调用下面定义的方法计算inSampleSize值
+            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
+
+            // 使用获取到的inSampleSize值再次解析图片
+            options.inJustDecodeBounds = false;
+
+            // 配置格式
+            options.inPreferredConfig = config;
+
+            return BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
       }
 
       /**
@@ -351,54 +452,6 @@ public class BitmapReader {
             }
 
             return null;
-      }
-
-      /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
-       *
-       * @param fileDescriptor 本地文件
-       * @param reqWidth 期望宽度
-       * @param reqHeight 期望高度
-       *
-       * @return 压缩后图片
-       */
-      public static Bitmap sampledBitmap (
-          FileDescriptor fileDescriptor, int reqWidth, int reqHeight ) {
-
-            return sampledBitmap( fileDescriptor, reqWidth, reqHeight, Config.RGB_565 );
-      }
-
-      /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
-       *
-       * @param fileDescriptor 本地文件
-       * @param reqWidth 期望宽度
-       * @param reqHeight 期望高度
-       * @param config 图片像素配置
-       *
-       * @return 压缩后图片
-       */
-      public static Bitmap sampledBitmap (
-          FileDescriptor fileDescriptor,
-          int reqWidth,
-          int reqHeight,
-          Config config ) {
-
-            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
-
-            // 调用下面定义的方法计算inSampleSize值
-            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
-
-            // 使用获取到的inSampleSize值再次解析图片
-            options.inJustDecodeBounds = false;
-
-            // 配置格式
-            options.inPreferredConfig = config;
-
-            return BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
       }
 
       /**
@@ -482,12 +535,29 @@ public class BitmapReader {
           int reqHeight,
           Config config ) {
 
-            String path = file.getPath();
+            return maxSampledBitmap( file.getAbsolutePath(), reqWidth, reqHeight, config );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       *
+       * @param filePath 本地文件
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       * @param config 图片像素配置
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap maxSampledBitmap (
+          String filePath,
+          int reqWidth,
+          int reqHeight,
+          Config config ) {
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile( path, options );
+            BitmapFactory.decodeFile( filePath, options );
 
             // 调用下面定义的方法计算inSampleSize值
             options.inSampleSize = calculateMaxInSampleSize( options, reqWidth, reqHeight );
@@ -498,7 +568,7 @@ public class BitmapReader {
             // 配置格式
             options.inPreferredConfig = config;
 
-            return BitmapFactory.decodeFile( path, options );
+            return BitmapFactory.decodeFile( filePath, options );
       }
 
       /**
@@ -715,10 +785,28 @@ public class BitmapReader {
           int heightSize,
           Config config ) {
 
+            return matchSize( file.getAbsolutePath(), widthSize, heightSize, config );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param filePath bitmap filePath
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSize (
+          String filePath,
+          int widthSize,
+          int heightSize,
+          Config config ) {
+
             BitmapFactory.Options options = new Options();
             options.inJustDecodeBounds = true;
-            String absolutePath = file.getAbsolutePath();
-            BitmapFactory.decodeFile( absolutePath, options );
+            BitmapFactory.decodeFile( filePath, options );
 
             int outWidth = options.outWidth;
             int outHeight = options.outHeight;
@@ -741,7 +829,7 @@ public class BitmapReader {
 
             options.inPreferredConfig = config;
 
-            return BitmapFactory.decodeFile( absolutePath, options );
+            return BitmapFactory.decodeFile( filePath, options );
       }
 
       /**
@@ -985,10 +1073,28 @@ public class BitmapReader {
           int heightSize,
           Config config ) {
 
+            return matchSizeMost( file.getAbsolutePath(), widthSize, heightSize, config );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       *
+       * @param filePath bitmap filePath
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          String filePath,
+          int widthSize,
+          int heightSize,
+          Config config ) {
+
             BitmapFactory.Options options = new Options();
             options.inJustDecodeBounds = true;
-            String absolutePath = file.getAbsolutePath();
-            BitmapFactory.decodeFile( absolutePath, options );
+            BitmapFactory.decodeFile( filePath, options );
 
             int outWidth = options.outWidth;
             int outHeight = options.outHeight;
@@ -1011,7 +1117,7 @@ public class BitmapReader {
 
             options.inPreferredConfig = config;
 
-            return BitmapFactory.decodeFile( absolutePath, options );
+            return BitmapFactory.decodeFile( filePath, options );
       }
 
       /**
@@ -1226,9 +1332,26 @@ public class BitmapReader {
           int widthSize,
           Config config ) {
 
+            return matchWidth( file.getAbsolutePath(), widthSize, config );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
+       *
+       * @param filePath bitmap filePath
+       * @param widthSize 要求的宽度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchWidth (
+          String filePath,
+          int widthSize,
+          Config config ) {
+
             BitmapFactory.Options options = new Options();
             options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+            BitmapFactory.decodeFile( filePath, options );
 
             options.inDensity = options.outWidth;
             options.inTargetDensity = widthSize;
@@ -1238,7 +1361,7 @@ public class BitmapReader {
 
             options.inPreferredConfig = config;
 
-            return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+            return BitmapFactory.decodeFile( filePath, options );
       }
 
       /**
@@ -1418,9 +1541,26 @@ public class BitmapReader {
           int heightSize,
           Config config ) {
 
+            return matchHeight( file.getAbsolutePath(), heightSize, config );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足高度要求
+       *
+       * @param filePath bitmap filePath
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchHeight (
+          String filePath,
+          int heightSize,
+          Config config ) {
+
             BitmapFactory.Options options = new Options();
             options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+            BitmapFactory.decodeFile( filePath, options );
 
             options.inDensity = options.outHeight;
             options.inTargetDensity = heightSize;
@@ -1430,7 +1570,7 @@ public class BitmapReader {
 
             options.inPreferredConfig = config;
 
-            return BitmapFactory.decodeFile( file.getAbsolutePath(), options );
+            return BitmapFactory.decodeFile( filePath, options );
       }
 
       /**
