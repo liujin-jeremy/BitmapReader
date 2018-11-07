@@ -33,54 +33,6 @@ public class BitmapReader {
       }
 
       /**
-       * 读取原图,使用RGB_565格式
-       *
-       * @param file bitmap file
-       *
-       * @return 资源对应bitmap
-       */
-      public static Bitmap read ( File file ) {
-
-            return read( file.getAbsolutePath() );
-      }
-
-      /**
-       * 读取原图,使用RGB_565格式
-       *
-       * @param path :file path
-       *
-       * @return 资源对应bitmap
-       */
-      public static Bitmap read ( String path ) {
-
-            return read( path, Config.RGB_565 );
-      }
-
-      /**
-       * 读取原图,使用RGB_565格式
-       *
-       * @param fileDescriptor :fileDescriptor
-       *
-       * @return 资源对应bitmap
-       */
-      public static Bitmap read ( FileDescriptor fileDescriptor ) {
-
-            return read( fileDescriptor, Config.RGB_565 );
-      }
-
-      /**
-       * 读取原图,使用RGB_565格式
-       *
-       * @param stream stream
-       *
-       * @return 资源对应bitmap
-       */
-      public static Bitmap read ( InputStream stream ) {
-
-            return read( stream, Config.RGB_565 );
-      }
-
-      /**
        * 读取原图
        *
        * @param context context
@@ -97,6 +49,18 @@ public class BitmapReader {
       }
 
       /**
+       * 读取原图,使用RGB_565格式
+       *
+       * @param file bitmap file
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap read ( File file ) {
+
+            return read( file.getAbsolutePath() );
+      }
+
+      /**
        * 读取原图
        *
        * @param file bitmap file
@@ -106,6 +70,18 @@ public class BitmapReader {
       public static Bitmap read ( File file, Config config ) {
 
             return read( file.getAbsolutePath(), config );
+      }
+
+      /**
+       * 读取原图,使用RGB_565格式
+       *
+       * @param path :file path
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap read ( String path ) {
+
+            return read( path, Config.RGB_565 );
       }
 
       /**
@@ -124,6 +100,18 @@ public class BitmapReader {
       }
 
       /**
+       * 读取原图,使用RGB_565格式
+       *
+       * @param fileDescriptor :fileDescriptor
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap read ( FileDescriptor fileDescriptor ) {
+
+            return read( fileDescriptor, Config.RGB_565 );
+      }
+
+      /**
        * 读取原图
        *
        * @param fileDescriptor :fileDescriptor
@@ -136,6 +124,18 @@ public class BitmapReader {
             options.inPreferredConfig = config;
 
             return BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
+      }
+
+      /**
+       * 读取原图,使用RGB_565格式
+       *
+       * @param stream stream
+       *
+       * @return 资源对应bitmap
+       */
+      public static Bitmap read ( InputStream stream ) {
+
+            return read( stream, Config.RGB_565 );
       }
 
       /**
@@ -298,6 +298,23 @@ public class BitmapReader {
           Config config ) {
 
             return sampledBitmap( file.getAbsolutePath(), reqWidth, reqHeight, config );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       *
+       * @param filePath 本地文件
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap sampledBitmap (
+          String filePath,
+          int reqWidth,
+          int reqHeight ) {
+
+            return sampledBitmap( filePath, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -524,6 +541,23 @@ public class BitmapReader {
           Config config ) {
 
             return maxSampledBitmap( file.getAbsolutePath(), reqWidth, reqHeight, config );
+      }
+
+      /**
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       *
+       * @param filePath 本地文件
+       * @param reqWidth 期望宽度
+       * @param reqHeight 期望高度
+       *
+       * @return 压缩后图片
+       */
+      public static Bitmap maxSampledBitmap (
+          String filePath,
+          int reqWidth,
+          int reqHeight ) {
+
+            return maxSampledBitmap( filePath, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -774,6 +808,23 @@ public class BitmapReader {
           Config config ) {
 
             return matchSize( file.getAbsolutePath(), widthSize, heightSize, config );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param filePath bitmap filePath
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSize (
+          String filePath,
+          int widthSize,
+          int heightSize ) {
+
+            return matchSize( filePath, widthSize, heightSize, Config.RGB_565 );
       }
 
       /**
@@ -1070,6 +1121,23 @@ public class BitmapReader {
        * @param filePath bitmap filePath
        * @param widthSize 要求的宽度
        * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          String filePath,
+          int widthSize,
+          int heightSize ) {
+
+            return matchSizeMost( filePath, widthSize, heightSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       *
+       * @param filePath bitmap filePath
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
        * @param config 图片像素配置
        *
        * @return bitmap
@@ -1328,6 +1396,21 @@ public class BitmapReader {
        *
        * @param filePath bitmap filePath
        * @param widthSize 要求的宽度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchWidth (
+          String filePath,
+          int widthSize ) {
+
+            return matchWidth( filePath, widthSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足宽度要求
+       *
+       * @param filePath bitmap filePath
+       * @param widthSize 要求的宽度
        * @param config 图片像素配置
        *
        * @return bitmap
@@ -1537,6 +1620,21 @@ public class BitmapReader {
        *
        * @param filePath bitmap filePath
        * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchHeight (
+          String filePath,
+          int heightSize ) {
+
+            return matchHeight( filePath, heightSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即满足高度要求
+       *
+       * @param filePath bitmap filePath
+       * @param heightSize 要求的高度
        * @param config 图片像素配置
        *
        * @return bitmap
@@ -1662,16 +1760,43 @@ public class BitmapReader {
             return null;
       }
 
+      /**
+       * 裁剪指定区域
+       *
+       * @param bitmap 原图
+       * @param x 起始坐标x
+       * @param y 起始坐标y
+       * @param width 宽度
+       * @param height 高度
+       *
+       * @return 裁剪后图片
+       */
       public static Bitmap clip ( Bitmap bitmap, int x, int y, int width, int height ) {
 
             return Bitmap.createBitmap( bitmap, x, y, width, height );
       }
 
+      /**
+       * 高度方向从起始开始向下裁剪指定高度
+       *
+       * @param bitmap 原图
+       * @param height 高度
+       *
+       * @return 裁剪后图片
+       */
       public static Bitmap clipStart ( Bitmap bitmap, int height ) {
 
             return Bitmap.createBitmap( bitmap, 0, 0, bitmap.getWidth(), height );
       }
 
+      /**
+       * 高度方向从尾部开始向上裁剪指定高度
+       *
+       * @param bitmap 原图
+       * @param height 高度
+       *
+       * @return 裁剪后图片
+       */
       public static Bitmap clipEnd ( Bitmap bitmap, int height ) {
 
             return Bitmap.createBitmap(
@@ -1683,17 +1808,42 @@ public class BitmapReader {
             );
       }
 
+      /**
+       * 宽度方向从左开始向右裁剪指定宽度
+       *
+       * @param bitmap 原图
+       * @param width 宽度
+       *
+       * @return 裁剪后图片
+       */
       public static Bitmap clipLeft ( Bitmap bitmap, int width ) {
 
             return Bitmap.createBitmap( bitmap, 0, 0, width, bitmap.getHeight() );
       }
 
+      /**
+       * 宽度方向从右开始向左裁剪指定宽度
+       *
+       * @param bitmap 原图
+       * @param width 宽度
+       *
+       * @return 裁剪后图片
+       */
       public static Bitmap clipRight ( Bitmap bitmap, int width ) {
 
             return Bitmap
                 .createBitmap( bitmap, bitmap.getWidth() - width, 0, width, bitmap.getHeight() );
       }
 
+      /**
+       * 从中心开始裁剪指定尺寸
+       *
+       * @param bitmap 原图
+       * @param width 宽度
+       * @param height 高度
+       *
+       * @return 裁剪后原图
+       */
       public static Bitmap clipCenter ( Bitmap bitmap, int width, int height ) {
 
             int x = ( bitmap.getWidth() - width ) >> 1;
