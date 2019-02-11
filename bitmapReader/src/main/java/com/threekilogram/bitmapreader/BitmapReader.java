@@ -154,7 +154,7 @@ public class BitmapReader {
       }
 
       /**
-       * 计算图片缩放比例
+       * 计算图片采样率
        */
       private static int calculateInSampleSize (
           BitmapFactory.Options options, int reqWidth, int reqHeight ) {
@@ -216,7 +216,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param context context
        * @param resId 资源id
@@ -235,7 +235,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param context context
        * @param resId 资源id
@@ -268,7 +268,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param file 本地文件
        * @param reqWidth 期望宽度
@@ -282,7 +282,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param file 本地文件
        * @param reqWidth 期望宽度
@@ -301,7 +301,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param filePath 本地文件
        * @param reqWidth 期望宽度
@@ -318,7 +318,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param filePath 本地文件
        * @param reqWidth 期望宽度
@@ -351,7 +351,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param fileDescriptor 本地文件
        * @param reqWidth 期望宽度
@@ -366,7 +366,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param fileDescriptor 本地文件
        * @param reqWidth 期望宽度
@@ -399,7 +399,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param stream stream
        * @param reqWidth 期望宽度
@@ -413,7 +413,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 任一小于要求的 宽度/高度,使用采样率压缩
        *
        * @param stream stream
        * @param reqWidth 期望宽度
@@ -428,8 +428,7 @@ public class BitmapReader {
           int reqHeight,
           Config config ) {
 
-            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
-            inputStream.mark( 1024 );
+            BufferedInputStream inputStream = getBufferedInputStream( stream );
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -448,6 +447,7 @@ public class BitmapReader {
                   inputStream.reset();
                   return BitmapFactory.decodeStream( inputStream, null, options );
             } catch(IOException e) {
+                  e.printStackTrace();
 
                   try {
                         inputStream.close();
@@ -460,7 +460,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param context context
        * @param resId 资源id
@@ -479,7 +479,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param context context
        * @param resId 资源id
@@ -511,7 +511,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param file 本地文件
        * @param reqWidth 期望宽度
@@ -525,7 +525,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param file 本地文件
        * @param reqWidth 期望宽度
@@ -544,7 +544,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param filePath 本地文件
        * @param reqWidth 期望宽度
@@ -561,7 +561,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param filePath 本地文件
        * @param reqWidth 期望宽度
@@ -594,7 +594,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param fileDescriptor 本地文件
        * @param reqWidth 期望宽度
@@ -609,7 +609,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param fileDescriptor 本地文件
        * @param reqWidth 期望宽度
@@ -642,7 +642,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param stream stream
        * @param reqWidth 期望宽度
@@ -656,7 +656,7 @@ public class BitmapReader {
       }
 
       /**
-       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度
+       * 压缩图片至 宽度/高度 全部小于要求的 宽度/高度,使用采样率压缩
        *
        * @param stream stream
        * @param reqWidth 期望宽度
@@ -671,8 +671,7 @@ public class BitmapReader {
           int reqHeight,
           Config config ) {
 
-            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
-            inputStream.mark( 1024 );
+            BufferedInputStream inputStream = getBufferedInputStream( stream );
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -691,6 +690,7 @@ public class BitmapReader {
                   inputStream.reset();
                   return BitmapFactory.decodeStream( inputStream, null, options );
             } catch(IOException e) {
+                  e.printStackTrace();
 
                   try {
                         inputStream.close();
@@ -964,8 +964,7 @@ public class BitmapReader {
           int heightSize,
           Config config ) {
 
-            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
-            inputStream.mark( 1024 );
+            BufferedInputStream inputStream = getBufferedInputStream( stream );
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -996,6 +995,7 @@ public class BitmapReader {
                   inputStream.reset();
                   return BitmapFactory.decodeStream( inputStream, null, options );
             } catch(IOException e) {
+                  e.printStackTrace();
 
                   try {
                         inputStream.close();
@@ -1269,8 +1269,7 @@ public class BitmapReader {
           int heightSize,
           Config config ) {
 
-            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
-            inputStream.mark( 1024 );
+            BufferedInputStream inputStream = getBufferedInputStream( stream );
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -1301,6 +1300,7 @@ public class BitmapReader {
                   inputStream.reset();
                   return BitmapFactory.decodeStream( inputStream, null, options );
             } catch(IOException e) {
+                  e.printStackTrace();
 
                   try {
                         inputStream.close();
@@ -1507,8 +1507,7 @@ public class BitmapReader {
           int widthSize,
           Config config ) {
 
-            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
-            inputStream.mark( 1024 );
+            BufferedInputStream inputStream = getBufferedInputStream( stream );
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -1525,7 +1524,7 @@ public class BitmapReader {
                   inputStream.reset();
                   return BitmapFactory.decodeStream( inputStream, null, options );
             } catch(IOException e) {
-
+                  e.printStackTrace();
                   try {
                         inputStream.close();
                   } catch(IOException e1) {
@@ -1731,8 +1730,7 @@ public class BitmapReader {
           int heightSize,
           Config config ) {
 
-            BufferedInputStream inputStream = new BufferedInputStream( stream, 64 );
-            inputStream.mark( 1024 );
+            BufferedInputStream inputStream = getBufferedInputStream( stream );
 
             // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -1749,6 +1747,7 @@ public class BitmapReader {
                   inputStream.reset();
                   return BitmapFactory.decodeStream( inputStream, null, options );
             } catch(IOException e) {
+                  e.printStackTrace();
 
                   try {
                         inputStream.close();
@@ -1758,6 +1757,13 @@ public class BitmapReader {
             }
 
             return null;
+      }
+
+      private static BufferedInputStream getBufferedInputStream ( InputStream stream ) {
+
+            BufferedInputStream inputStream = new BufferedInputStream( stream, 128 );
+            inputStream.mark( Integer.MAX_VALUE );
+            return inputStream;
       }
 
       /**

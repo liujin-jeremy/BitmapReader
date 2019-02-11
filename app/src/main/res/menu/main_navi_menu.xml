@@ -75,6 +75,10 @@
                 android:id="@+id/menu15"
                 android:title="clip center"/>
 
+            <item
+                android:id="@+id/menu18"
+                android:title="stream"/>
+
 
       </group>
 

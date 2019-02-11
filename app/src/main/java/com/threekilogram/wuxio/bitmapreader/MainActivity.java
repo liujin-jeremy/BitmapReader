@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.threekilogram.bitmapreader.BitmapReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 
 /**
@@ -281,6 +283,10 @@ public class MainActivity extends AppCompatActivity {
                               matchMostArgb();
                               break;
 
+                        case R.id.menu18:
+                              decodeStream();
+                              break;
+
                         default:
                               break;
                   }
@@ -367,6 +373,16 @@ public class MainActivity extends AppCompatActivity {
 
       private void decodeStream ( ) {
 
+            try {
+                  InputStream stream = getAssets().open( "src.jpg" );
+                  Bitmap bitmap = BitmapReader.matchWidth( stream, 500 );
+                  mImageView.setImageBitmap( bitmap );
+
+                  setTextView( bitmap );
+                  Log.i( TAG, "decodeStream: " + bitmap );
+            } catch(IOException e) {
+                  e.printStackTrace();
+            }
       }
 
       public static int getStatusBarHeight ( Context context ) {
