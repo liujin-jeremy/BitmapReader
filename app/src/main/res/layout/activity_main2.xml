@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.threekilogram.wuxio.bitmapreader.Main2Activity">
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="500px"
+          tools:ignore="PxUsage">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:src="@drawable/src"/>
+
+      </FrameLayout>
+
+      <TextView
+          android:id="@+id/textView"
+          android:layout_width="match_parent"
+          android:layout_height="80px"
+          android:layout_marginTop="520px"
+          tools:ignore="PxUsage"/>
+
+      <android.support.v4.widget.NestedScrollView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="600px"
+          tools:ignore="PxUsage">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                  <Button
+                      android:id="@+id/read"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="原图"/>
+
+                  <Button
+                      android:id="@+id/sample"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="采样率缩放"/>
+
+                  <Button
+                      android:id="@+id/sampleMost"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="采样率极限缩放"/>
+
+                  <Button
+                      android:id="@+id/matchSize"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="匹配尺寸"/>
+
+                  <Button
+                      android:id="@+id/matchSizeMost"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="宽高全匹配到尺寸内"/>
+
+                  <Button
+                      android:id="@+id/matchWidth"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="匹配宽度"/>
+
+                  <Button
+                      android:id="@+id/matchHeight"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="匹配高度"/>
+
+                  <Button
+                      android:id="@+id/matchSizeFile"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="指定尺寸读取文件"/>
+
+                  <Button
+                      android:id="@+id/matchSizeFD"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="指定尺寸读取文件描述符"/>
+
+                  <Button
+                      android:id="@+id/matchSizeFilePath"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="指定尺寸读取文件路径"/>
+
+                  <Button
+                      android:id="@+id/matchSizeStream"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="指定尺寸读取文件流"/>
+
+                  <Button
+                      android:id="@+id/clipLeft"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="裁剪左"/>
+
+                  <Button
+                      android:id="@+id/clipTop"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="裁剪上"/>
+
+                  <Button
+                      android:id="@+id/clipRight"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="裁剪右"/>
+
+                  <Button
+                      android:id="@+id/clipBottom"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="裁剪下"/>
+
+                  <Button
+                      android:id="@+id/clipCenter"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="裁剪中"/>
+            </LinearLayout>
+
+      </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>

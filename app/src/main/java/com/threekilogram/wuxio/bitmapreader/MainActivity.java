@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void scaleSrc ( int width, int height ) {
 
-            Bitmap bitmap = BitmapReader.sampledBitmap(
+            Bitmap bitmap = BitmapReader.sampled(
                 this,
                 R.drawable.src,
                 width,
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
       private void scaleSrcRgb ( int width, int height ) {
 
             Bitmap bitmap = BitmapReader
-                .sampledBitmap( this, R.drawable.src, width, height );
+                .sampled( this, R.drawable.src, width, height );
             mImageView.setImageBitmap( bitmap );
             setTextView( bitmap );
       }
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
       private void maxScaleSrc ( int width, int height ) {
 
             Bitmap bitmap = BitmapReader
-                .maxSampledBitmap( this, R.drawable.src, width, height, Config.ARGB_8888 );
+                .sampledMost( this, R.drawable.src, width, height, Config.ARGB_8888 );
             mImageView.setImageBitmap( bitmap );
             setTextView( bitmap );
       }
@@ -114,14 +114,14 @@ public class MainActivity extends AppCompatActivity {
       private void maxScaleSrcRgb ( int width, int height ) {
 
             Bitmap bitmap = BitmapReader
-                .maxSampledBitmap( this, R.drawable.src, width, height );
+                .sampledMost( this, R.drawable.src, width, height );
             mImageView.setImageBitmap( bitmap );
             setTextView( bitmap );
       }
 
       private void matchSize ( int width, int height ) {
 
-            Bitmap bitmap = BitmapReader.matchSize(
+            Bitmap bitmap = BitmapReader.matchSizeMost(
                 this,
                 R.drawable.src,
                 500,
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
       private void matchSizeRgb ( int width, int height ) {
 
-            Bitmap bitmap = BitmapReader.matchSize(
+            Bitmap bitmap = BitmapReader.matchSizeMost(
                 this,
                 R.drawable.src,
                 500,
@@ -299,14 +299,14 @@ public class MainActivity extends AppCompatActivity {
       private void matchMostArgb ( ) {
 
             Bitmap bitmap = BitmapReader
-                .matchSizeMost( this, R.drawable.src, 500, 500, Config.ARGB_8888 );
+                .matchSize( this, R.drawable.src, 500, 500, Config.ARGB_8888 );
             mImageView.setImageBitmap( bitmap );
             setTextView( bitmap );
       }
 
       private void matchMost ( ) {
 
-            Bitmap bitmap = BitmapReader.matchSizeMost( this, R.drawable.src, 500, 500 );
+            Bitmap bitmap = BitmapReader.matchSize( this, R.drawable.src, 500, 500 );
             mImageView.setImageBitmap( bitmap );
             setTextView( bitmap );
       }

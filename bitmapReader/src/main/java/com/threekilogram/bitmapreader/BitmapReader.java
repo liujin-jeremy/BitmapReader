@@ -296,13 +296,13 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap (
+      public static Bitmap sampled (
           Context context,
           @DrawableRes int resId,
           int reqWidth,
           int reqHeight ) {
 
-            return sampledBitmap( context, resId, reqWidth, reqHeight, Config.RGB_565 );
+            return sampled( context, resId, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -316,7 +316,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap (
+      public static Bitmap sampled (
           Context context,
           @DrawableRes int resId,
           int reqWidth,
@@ -347,9 +347,9 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap ( File file, int reqWidth, int reqHeight ) {
+      public static Bitmap sampled ( File file, int reqWidth, int reqHeight ) {
 
-            return sampledBitmap( file, reqWidth, reqHeight, Config.RGB_565 );
+            return sampled( file, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -362,13 +362,13 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap (
+      public static Bitmap sampled (
           File file,
           int reqWidth,
           int reqHeight,
           Config config ) {
 
-            return sampledBitmap( file.getAbsolutePath(), reqWidth, reqHeight, config );
+            return sampled( file.getAbsolutePath(), reqWidth, reqHeight, config );
       }
 
       /**
@@ -380,12 +380,12 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap (
+      public static Bitmap sampled (
           String filePath,
           int reqWidth,
           int reqHeight ) {
 
-            return sampledBitmap( filePath, reqWidth, reqHeight, Config.RGB_565 );
+            return sampled( filePath, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -398,7 +398,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap (
+      public static Bitmap sampled (
           String filePath,
           int reqWidth,
           int reqHeight,
@@ -430,10 +430,10 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap (
+      public static Bitmap sampled (
           FileDescriptor fileDescriptor, int reqWidth, int reqHeight ) {
 
-            return sampledBitmap( fileDescriptor, reqWidth, reqHeight, Config.RGB_565 );
+            return sampled( fileDescriptor, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -446,7 +446,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap (
+      public static Bitmap sampled (
           FileDescriptor fileDescriptor,
           int reqWidth,
           int reqHeight,
@@ -478,9 +478,9 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap ( InputStream stream, int reqWidth, int reqHeight ) {
+      public static Bitmap sampled ( InputStream stream, int reqWidth, int reqHeight ) {
 
-            return sampledBitmap( stream, reqWidth, reqHeight, Config.RGB_565 );
+            return sampled( stream, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -493,7 +493,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap sampledBitmap (
+      public static Bitmap sampled (
           InputStream stream,
           int reqWidth,
           int reqHeight,
@@ -540,13 +540,13 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap (
+      public static Bitmap sampledMost (
           Context context,
           @DrawableRes int resId,
           int reqWidth,
           int reqHeight ) {
 
-            return maxSampledBitmap( context, resId, reqWidth, reqHeight, Config.RGB_565 );
+            return sampledMost( context, resId, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -560,7 +560,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap (
+      public static Bitmap sampledMost (
           Context context,
           @DrawableRes int resId,
           int reqWidth,
@@ -590,9 +590,9 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap ( File file, int reqWidth, int reqHeight ) {
+      public static Bitmap sampledMost ( File file, int reqWidth, int reqHeight ) {
 
-            return maxSampledBitmap( file, reqWidth, reqHeight, Config.RGB_565 );
+            return sampledMost( file, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -605,13 +605,13 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap (
+      public static Bitmap sampledMost (
           File file,
           int reqWidth,
           int reqHeight,
           Config config ) {
 
-            return maxSampledBitmap( file.getAbsolutePath(), reqWidth, reqHeight, config );
+            return sampledMost( file.getAbsolutePath(), reqWidth, reqHeight, config );
       }
 
       /**
@@ -623,12 +623,12 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap (
+      public static Bitmap sampledMost (
           String filePath,
           int reqWidth,
           int reqHeight ) {
 
-            return maxSampledBitmap( filePath, reqWidth, reqHeight, Config.RGB_565 );
+            return sampledMost( filePath, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -641,7 +641,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap (
+      public static Bitmap sampledMost (
           String filePath,
           int reqWidth,
           int reqHeight,
@@ -673,10 +673,10 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap (
+      public static Bitmap sampledMost (
           FileDescriptor fileDescriptor, int reqWidth, int reqHeight ) {
 
-            return maxSampledBitmap( fileDescriptor, reqWidth, reqHeight, Config.RGB_565 );
+            return sampledMost( fileDescriptor, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -689,7 +689,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap (
+      public static Bitmap sampledMost (
           FileDescriptor fileDescriptor,
           int reqWidth,
           int reqHeight,
@@ -721,9 +721,9 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap ( InputStream stream, int reqWidth, int reqHeight ) {
+      public static Bitmap sampledMost ( InputStream stream, int reqWidth, int reqHeight ) {
 
-            return maxSampledBitmap( stream, reqWidth, reqHeight, Config.RGB_565 );
+            return sampledMost( stream, reqWidth, reqHeight, Config.RGB_565 );
       }
 
       /**
@@ -736,7 +736,7 @@ public class BitmapReader {
        *
        * @return 压缩后图片
        */
-      public static Bitmap maxSampledBitmap (
+      public static Bitmap sampledMost (
           InputStream stream,
           int reqWidth,
           int reqHeight,
@@ -775,311 +775,6 @@ public class BitmapReader {
 
       /**
        * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param context 提供resource
-       * @param id 资源id
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          Context context,
-          @DrawableRes int id,
-          int widthSize,
-          int heightSize ) {
-
-            return matchSize( context, id, widthSize, heightSize, Config.RGB_565 );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param context 提供resource
-       * @param id 资源id
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       * @param config 图片像素配置
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          Context context,
-          @DrawableRes int id,
-          int widthSize,
-          int heightSize,
-          Config config ) {
-
-            /* 只读取尺寸 */
-
-            BitmapFactory.Options options = new Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeResource( context.getResources(), id, options );
-
-            int outWidth = options.outWidth;
-            int outHeight = options.outHeight;
-
-            float fateWidth = outWidth * 1f / widthSize;
-            float fateHeight = outHeight * 1f / heightSize;
-
-            /* 根据比率选择缩放边 */
-
-            if( fateHeight > fateWidth ) {
-
-                  options.inDensity = outHeight;
-                  options.inTargetDensity = heightSize;
-            } else {
-
-                  options.inDensity = outWidth;
-                  options.inTargetDensity = widthSize;
-            }
-
-            /* 完成解析 */
-
-            options.inScaled = true;
-            options.inJustDecodeBounds = false;
-
-            /* config */
-
-            options.inPreferredConfig = config;
-
-            return BitmapFactory.decodeResource( context.getResources(), id, options );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          File file,
-          int widthSize,
-          int heightSize ) {
-
-            return matchSize( file, widthSize, heightSize, Config.RGB_565 );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param file bitmap file
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       * @param config 图片像素配置
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          File file,
-          int widthSize,
-          int heightSize,
-          Config config ) {
-
-            return matchSize( file.getAbsolutePath(), widthSize, heightSize, config );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param filePath bitmap filePath
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          String filePath,
-          int widthSize,
-          int heightSize ) {
-
-            return matchSize( filePath, widthSize, heightSize, Config.RGB_565 );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param filePath bitmap filePath
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       * @param config 图片像素配置
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          String filePath,
-          int widthSize,
-          int heightSize,
-          Config config ) {
-
-            BitmapFactory.Options options = new Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile( filePath, options );
-
-            int outWidth = options.outWidth;
-            int outHeight = options.outHeight;
-
-            float fateWidth = outWidth * 1f / widthSize;
-            float fateHeight = outHeight * 1f / heightSize;
-
-            if( fateHeight > fateWidth ) {
-
-                  options.inDensity = outHeight;
-                  options.inTargetDensity = heightSize;
-            } else {
-
-                  options.inDensity = outWidth;
-                  options.inTargetDensity = widthSize;
-            }
-
-            options.inScaled = true;
-            options.inJustDecodeBounds = false;
-
-            options.inPreferredConfig = config;
-
-            return BitmapFactory.decodeFile( filePath, options );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          FileDescriptor fileDescriptor,
-          int widthSize,
-          int heightSize ) {
-
-            return matchSize( fileDescriptor, widthSize, heightSize, Config.RGB_565 );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param fileDescriptor bitmap fileDescriptor
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       * @param config 图片像素配置
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          FileDescriptor fileDescriptor,
-          int widthSize,
-          int heightSize,
-          Config config ) {
-
-            BitmapFactory.Options options = new Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
-
-            int outWidth = options.outWidth;
-            int outHeight = options.outHeight;
-
-            float fateWidth = outWidth * 1f / widthSize;
-            float fateHeight = outHeight * 1f / heightSize;
-
-            if( fateHeight > fateWidth ) {
-
-                  options.inDensity = outHeight;
-                  options.inTargetDensity = heightSize;
-            } else {
-
-                  options.inDensity = outWidth;
-                  options.inTargetDensity = widthSize;
-            }
-
-            options.inScaled = true;
-            options.inJustDecodeBounds = false;
-
-            options.inPreferredConfig = config;
-
-            return BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param stream stream
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          InputStream stream,
-          int widthSize,
-          int heightSize ) {
-
-            return matchSize( stream, widthSize, heightSize, Config.RGB_565 );
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
-       *
-       * @param stream stream
-       * @param widthSize 要求的宽度
-       * @param heightSize 要求的高度
-       * @param config 图片像素配置
-       *
-       * @return bitmap
-       */
-      public static Bitmap matchSize (
-          InputStream stream,
-          int widthSize,
-          int heightSize,
-          Config config ) {
-
-            BufferedInputStream inputStream = getBufferedInputStream( stream );
-
-            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream( inputStream, null, options );
-
-            int outWidth = options.outWidth;
-            int outHeight = options.outHeight;
-
-            float fateWidth = outWidth * 1f / widthSize;
-            float fateHeight = outHeight * 1f / heightSize;
-
-            if( fateHeight > fateWidth ) {
-
-                  options.inDensity = outHeight;
-                  options.inTargetDensity = heightSize;
-            } else {
-
-                  options.inDensity = outWidth;
-                  options.inTargetDensity = widthSize;
-            }
-
-            options.inScaled = true;
-            options.inJustDecodeBounds = false;
-            options.inPreferredConfig = config;
-
-            try {
-                  inputStream.reset();
-                  return BitmapFactory.decodeStream( inputStream, null, options );
-            } catch(IOException e) {
-                  e.printStackTrace();
-
-                  try {
-                        inputStream.close();
-                  } catch(IOException e1) {
-                        e1.printStackTrace();
-                  }
-            }
-
-            return null;
-      }
-
-      /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
        *
        * @param context 提供resource
        * @param id 资源id
@@ -1098,7 +793,7 @@ public class BitmapReader {
       }
 
       /**
-       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
        *
        * @param context 提供resource
        * @param id 资源id
@@ -1109,6 +804,311 @@ public class BitmapReader {
        * @return bitmap
        */
       public static Bitmap matchSizeMost (
+          Context context,
+          @DrawableRes int id,
+          int widthSize,
+          int heightSize,
+          Config config ) {
+
+            /* 只读取尺寸 */
+
+            BitmapFactory.Options options = new Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource( context.getResources(), id, options );
+
+            int outWidth = options.outWidth;
+            int outHeight = options.outHeight;
+
+            float fateWidth = outWidth * 1f / widthSize;
+            float fateHeight = outHeight * 1f / heightSize;
+
+            /* 根据比率选择缩放边 */
+
+            if( fateHeight > fateWidth ) {
+
+                  options.inDensity = outHeight;
+                  options.inTargetDensity = heightSize;
+            } else {
+
+                  options.inDensity = outWidth;
+                  options.inTargetDensity = widthSize;
+            }
+
+            /* 完成解析 */
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+
+            /* config */
+
+            options.inPreferredConfig = config;
+
+            return BitmapFactory.decodeResource( context.getResources(), id, options );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          File file,
+          int widthSize,
+          int heightSize ) {
+
+            return matchSizeMost( file, widthSize, heightSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param file bitmap file
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          File file,
+          int widthSize,
+          int heightSize,
+          Config config ) {
+
+            return matchSizeMost( file.getAbsolutePath(), widthSize, heightSize, config );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param filePath bitmap filePath
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          String filePath,
+          int widthSize,
+          int heightSize ) {
+
+            return matchSizeMost( filePath, widthSize, heightSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param filePath bitmap filePath
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          String filePath,
+          int widthSize,
+          int heightSize,
+          Config config ) {
+
+            BitmapFactory.Options options = new Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile( filePath, options );
+
+            int outWidth = options.outWidth;
+            int outHeight = options.outHeight;
+
+            float fateWidth = outWidth * 1f / widthSize;
+            float fateHeight = outHeight * 1f / heightSize;
+
+            if( fateHeight > fateWidth ) {
+
+                  options.inDensity = outHeight;
+                  options.inTargetDensity = heightSize;
+            } else {
+
+                  options.inDensity = outWidth;
+                  options.inTargetDensity = widthSize;
+            }
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+
+            options.inPreferredConfig = config;
+
+            return BitmapFactory.decodeFile( filePath, options );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          FileDescriptor fileDescriptor,
+          int widthSize,
+          int heightSize ) {
+
+            return matchSizeMost( fileDescriptor, widthSize, heightSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param fileDescriptor bitmap fileDescriptor
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          FileDescriptor fileDescriptor,
+          int widthSize,
+          int heightSize,
+          Config config ) {
+
+            BitmapFactory.Options options = new Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
+
+            int outWidth = options.outWidth;
+            int outHeight = options.outHeight;
+
+            float fateWidth = outWidth * 1f / widthSize;
+            float fateHeight = outHeight * 1f / heightSize;
+
+            if( fateHeight > fateWidth ) {
+
+                  options.inDensity = outHeight;
+                  options.inTargetDensity = heightSize;
+            } else {
+
+                  options.inDensity = outWidth;
+                  options.inTargetDensity = widthSize;
+            }
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+
+            options.inPreferredConfig = config;
+
+            return BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param stream stream
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          InputStream stream,
+          int widthSize,
+          int heightSize ) {
+
+            return matchSizeMost( stream, widthSize, heightSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度全部满足设定的要求
+       *
+       * @param stream stream
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSizeMost (
+          InputStream stream,
+          int widthSize,
+          int heightSize,
+          Config config ) {
+
+            BufferedInputStream inputStream = getBufferedInputStream( stream );
+
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream( inputStream, null, options );
+
+            int outWidth = options.outWidth;
+            int outHeight = options.outHeight;
+
+            float fateWidth = outWidth * 1f / widthSize;
+            float fateHeight = outHeight * 1f / heightSize;
+
+            if( fateHeight > fateWidth ) {
+
+                  options.inDensity = outHeight;
+                  options.inTargetDensity = heightSize;
+            } else {
+
+                  options.inDensity = outWidth;
+                  options.inTargetDensity = widthSize;
+            }
+
+            options.inScaled = true;
+            options.inJustDecodeBounds = false;
+            options.inPreferredConfig = config;
+
+            try {
+                  inputStream.reset();
+                  return BitmapFactory.decodeStream( inputStream, null, options );
+            } catch(IOException e) {
+                  e.printStackTrace();
+
+                  try {
+                        inputStream.close();
+                  } catch(IOException e1) {
+                        e1.printStackTrace();
+                  }
+            }
+
+            return null;
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       *
+       * @param context 提供resource
+       * @param id 资源id
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSize (
+          Context context,
+          @DrawableRes int id,
+          int widthSize,
+          int heightSize ) {
+
+            return matchSize( context, id, widthSize, heightSize, Config.RGB_565 );
+      }
+
+      /**
+       * 解析一个图片资源到匹配设定的尺寸,即:宽度或者高度任一满足设定的要求
+       *
+       * @param context 提供resource
+       * @param id 资源id
+       * @param widthSize 要求的宽度
+       * @param heightSize 要求的高度
+       * @param config 图片像素配置
+       *
+       * @return bitmap
+       */
+      public static Bitmap matchSize (
           Context context,
           @DrawableRes int id,
           int widthSize,
@@ -1159,12 +1159,12 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap matchSizeMost (
+      public static Bitmap matchSize (
           File file,
           int widthSize,
           int heightSize ) {
 
-            return matchSizeMost( file, widthSize, heightSize, Config.RGB_565 );
+            return matchSize( file, widthSize, heightSize, Config.RGB_565 );
       }
 
       /**
@@ -1177,13 +1177,13 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap matchSizeMost (
+      public static Bitmap matchSize (
           File file,
           int widthSize,
           int heightSize,
           Config config ) {
 
-            return matchSizeMost( file.getAbsolutePath(), widthSize, heightSize, config );
+            return matchSize( file.getAbsolutePath(), widthSize, heightSize, config );
       }
 
       /**
@@ -1195,12 +1195,12 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap matchSizeMost (
+      public static Bitmap matchSize (
           String filePath,
           int widthSize,
           int heightSize ) {
 
-            return matchSizeMost( filePath, widthSize, heightSize, Config.RGB_565 );
+            return matchSize( filePath, widthSize, heightSize, Config.RGB_565 );
       }
 
       /**
@@ -1213,7 +1213,7 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap matchSizeMost (
+      public static Bitmap matchSize (
           String filePath,
           int widthSize,
           int heightSize,
@@ -1255,12 +1255,12 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap matchSizeMost (
+      public static Bitmap matchSize (
           FileDescriptor fileDescriptor,
           int widthSize,
           int heightSize ) {
 
-            return matchSizeMost( fileDescriptor, widthSize, heightSize, Config.RGB_565 );
+            return matchSize( fileDescriptor, widthSize, heightSize, Config.RGB_565 );
       }
 
       /**
@@ -1273,7 +1273,7 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap matchSizeMost (
+      public static Bitmap matchSize (
           FileDescriptor fileDescriptor,
           int widthSize,
           int heightSize,
@@ -1316,12 +1316,12 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap matchSizeMost (
+      public static Bitmap matchSize (
           InputStream stream,
           int widthSize,
           int heightSize ) {
 
-            return matchSizeMost( stream, widthSize, heightSize, Config.RGB_565 );
+            return matchSize( stream, widthSize, heightSize, Config.RGB_565 );
       }
 
       /**
@@ -1334,7 +1334,7 @@ public class BitmapReader {
        *
        * @return bitmap
        */
-      public static Bitmap matchSizeMost (
+      public static Bitmap matchSize (
           InputStream stream,
           int widthSize,
           int heightSize,
