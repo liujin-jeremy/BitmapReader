@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
 
         //加上这两行
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'

@@ -154,24 +154,95 @@ public class BitmapReader {
       }
 
       /**
+       * 计算宽高比
+       *
+       * @param context context
+       * @param resId resource id
+       *
+       * @return 图片宽高比
+       */
+      public static float calculateAspectRatio ( Context context, int resId ) {
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource( context.getResources(), resId, options );
+            return options.outWidth * 1f / options.outHeight;
+      }
+
+      /**
+       * 计算宽高比
+       *
+       * @param file bitmap file
+       *
+       * @return 图片宽高比
+       */
+      public static float calculateAspectRatio ( File file ) {
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            return calculateAspectRatio( file.getAbsolutePath() );
+      }
+
+      /**
+       * 计算宽高比
+       *
+       * @param filePath 图片文件路径
+       *
+       * @return 图片宽高比
+       */
+      public static float calculateAspectRatio ( String filePath ) {
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile( filePath, options );
+            return options.outWidth * 1f / options.outHeight;
+      }
+
+      /**
+       * 计算宽高比
+       *
+       * @param fileDescriptor fileDescriptor
+       *
+       * @return 图片宽高比
+       */
+      public static float calculateAspectRatio ( FileDescriptor fileDescriptor ) {
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
+            return options.outWidth * 1f / options.outHeight;
+      }
+
+      /**
+       * 计算宽高比
+       *
+       * @param inputStream stream
+       *
+       * @return 图片宽高比
+       */
+      public static float calculateAspectRatio ( InputStream inputStream ) {
+            // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream( inputStream, null, options );
+            return options.outWidth * 1f / options.outHeight;
+      }
+
+      /**
        * 计算图片采样率
        */
       private static int calculateInSampleSize (
-          BitmapFactory.Options options, int reqWidth, int reqHeight ) {
+          int bitmapWidth, int bitmapHeight, int reqWidth, int reqHeight ) {
 
             if( reqWidth == 0 || reqHeight == 0 ) {
                   return 1;
             }
-            final int height = options.outHeight;
-            final int width = options.outWidth;
             int inSampleSize = 1;
 
             //如果图片宽或者高 大于 view的宽高
-            if( height > reqHeight || width > reqWidth ) {
+            if( bitmapWidth > reqHeight || bitmapHeight > reqWidth ) {
 
                   //计算图片的宽高的一半
-                  final int halfHeight = height / 2;
-                  final int halfWidth = width / 2;
+                  final int halfHeight = bitmapWidth / 2;
+                  final int halfWidth = bitmapHeight / 2;
 
                   //如果原始图片宽高是 view宽高的 2,4,8,16 ... 倍以上,会压缩图片至宽高任意一条边略大于 view 的 宽高为止,图片质量不会太差
                   while( ( halfHeight / inSampleSize ) >= reqHeight
@@ -258,7 +329,7 @@ public class BitmapReader {
             BitmapFactory.decodeResource( context.getResources(), resId, options );
 
             // 调用下面定义的方法计算inSampleSize值
-            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
+            options.inSampleSize = calculateInSampleSize( options.outWidth, options.outHeight, reqWidth, reqHeight );
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
 
@@ -339,7 +410,7 @@ public class BitmapReader {
             BitmapFactory.decodeFile( filePath, options );
 
             // 调用下面定义的方法计算inSampleSize值
-            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
+            options.inSampleSize = calculateInSampleSize( options.outWidth, options.outHeight, reqWidth, reqHeight );
 
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
@@ -387,7 +458,7 @@ public class BitmapReader {
             BitmapFactory.decodeFileDescriptor( fileDescriptor, null, options );
 
             // 调用下面定义的方法计算inSampleSize值
-            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
+            options.inSampleSize = calculateInSampleSize( options.outWidth, options.outHeight, reqWidth, reqHeight );
 
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
@@ -436,7 +507,7 @@ public class BitmapReader {
             BitmapFactory.decodeStream( inputStream, null, options );
 
             // 调用下面定义的方法计算inSampleSize值
-            options.inSampleSize = calculateInSampleSize( options, reqWidth, reqHeight );
+            options.inSampleSize = calculateInSampleSize( options.outWidth, options.outHeight, reqWidth, reqHeight );
 
             // 使用获取到的inSampleSize值再次解析图片
             options.inJustDecodeBounds = false;
