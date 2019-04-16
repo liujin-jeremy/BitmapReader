@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
 
-            bitmap = BitmapReader.clipEnd( bitmap, 500 );
+            bitmap = BitmapReader.clipBottom( bitmap, 500 );
             mImageView.setImageBitmap( bitmap );
 
             setTextView( bitmap );
@@ -365,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
 
-            bitmap = BitmapReader.clipStart( bitmap, 500 );
+            bitmap = BitmapReader.clipTop( bitmap, 500 );
             mImageView.setImageBitmap( bitmap );
 
             setTextView( bitmap );

@@ -1861,7 +1861,7 @@ public class BitmapReader {
        *
        * @return 裁剪后图片
        */
-      public static Bitmap clipStart ( Bitmap bitmap, int height ) {
+      public static Bitmap clipTop ( Bitmap bitmap, int height ) {
 
             return Bitmap.createBitmap( bitmap, 0, 0, bitmap.getWidth(), height );
       }
@@ -1874,7 +1874,7 @@ public class BitmapReader {
        *
        * @return 裁剪后图片
        */
-      public static Bitmap clipEnd ( Bitmap bitmap, int height ) {
+      public static Bitmap clipBottom ( Bitmap bitmap, int height ) {
 
             return Bitmap.createBitmap(
                 bitmap,
