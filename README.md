@@ -4,7 +4,7 @@
 bitmap 解析工具
 
 ```
-implementation 'tech.threekilogram:bitmapReader:2.0.7'
+implementation 'tech.threekilogram:bitmapReader:2.0.8'
 ```
 
 ### 使用
@@ -79,3 +79,6 @@ bitmap = BitmapReader.clipBottom( bitmap, 500 );
 // 裁剪上部指定高度
 bitmap = BitmapReader.clipTop( bitmap, 500 );
 ```
+
+
+
