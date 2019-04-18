@@ -4,7 +4,7 @@
 bitmap 解析工具
 
 ```
-implementation 'tech.threekilogram:bitmapReader:2.0.8'
+implementation 'tech.liujin:bitmapReader:1.0.0'
 ```
 
 ### 使用
