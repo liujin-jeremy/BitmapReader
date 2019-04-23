@@ -1,4 +1,4 @@
-package com.threekilogram.bitmapreader;
+package tech.liujin.bitmap;
 
 import android.content.Context;
 import android.graphics.Bitmap;
