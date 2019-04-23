@@ -9,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.threekilogram.bitmapreader.BitmapReader;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -18,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.Locale;
+import tech.liujin.bitmap.BitmapReader;
 
 public class Main2Activity extends AppCompatActivity implements OnClickListener {
 

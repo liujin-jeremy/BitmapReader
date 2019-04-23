@@ -15,10 +15,10 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.threekilogram.bitmapreader.BitmapReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
+import tech.liujin.bitmap.BitmapReader;
 
 /**
  * @author liujin
