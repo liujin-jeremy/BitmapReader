@@ -1,4 +1,4 @@
-package com.threekilogram.wuxio.bitmapreader;
+package tech.liujin.wuxio.bitmapreader;
 
 import static org.junit.Assert.assertEquals;
 

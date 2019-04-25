@@ -1,4 +1,4 @@
-package com.threekilogram.wuxio.bitmapreader;
+package tech.liujin.wuxio.bitmapreader;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.threekilogram.wuxio.bitmapreader.R;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;

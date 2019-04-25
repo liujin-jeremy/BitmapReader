@@ -1,4 +1,4 @@
-package com.threekilogram.wuxio.bitmapreader;
+package tech.liujin.wuxio.bitmapreader;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.threekilogram.wuxio.bitmapreader.R;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;

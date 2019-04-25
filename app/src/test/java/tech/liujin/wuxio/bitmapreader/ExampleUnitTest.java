@@ -1,6 +1,6 @@
-package com.threekilogram.bitmapreader;
+package tech.liujin.wuxio.bitmapreader;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
