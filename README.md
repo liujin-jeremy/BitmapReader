@@ -4,7 +4,7 @@
 bitmap 解析工具
 
 ```
-implementation 'tech.liujin:bitmapReader:1.0.0'
+implementation 'tech.liujin:bitmapReader:1.0.3'
 ```
 
 ### 使用
